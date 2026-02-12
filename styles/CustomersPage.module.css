@@ -1,0 +1,170 @@
+/* ========== متغیرهای اختصاصی ماژول ========== */
+:root {
+  --customers-bg: var(--background, #f8fafc);
+  --customers-card-bg: var(--card-bg, #ffffff);
+  --customers-border: var(--card-border, #e2e8f0);
+  --customers-text-primary: #1e293b;
+  --customers-text-secondary: #64748b;
+  --customers-badge-bg: rgba(59, 130, 246, 0.1);
+  --customers-badge-color: var(--primary, #3b82f6);
+  --customers-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+}
+
+.dark {
+  --customers-bg: #0f172a;
+  --customers-card-bg: #1e293b;
+  --customers-border: #334155;
+  --customers-text-primary: #f1f5f9;
+  --customers-text-secondary: #94a3b8;
+  --customers-badge-bg: rgba(96, 165, 250, 0.1);
+  --customers-badge-color: #60a5fa;
+}
+
+/* ========== کانتینر اصلی ========== */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.4s ease-out;
+  padding: 0.5rem 0;
+}
+
+/* ========== هدر ========== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--customers-text-primary);
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary, #3b82f6), transparent);
+  border-radius: 3px;
+}
+
+/* ========== بج تعداد ========== */
+.badge {
+  background: var(--customers-badge-bg);
+  color: var(--customers-badge-color);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--customers-shadow);
+}
+
+.badge:hover {
+  background: var(--primary, #3b82f6);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* ========== حالت خالی ========== */
+.emptyState {
+  background: var(--customers-card-bg);
+  border: 1px solid var(--customers-border);
+  border-radius: 0.75rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--customers-text-secondary);
+  font-size: 1rem;
+  box-shadow: var(--customers-shadow);
+  transition: all 0.2s ease;
+}
+
+.emptyState:hover {
+  box-shadow: var(--shadow-lg, 0 10px 25px -5px rgba(0, 0, 0, 0.1));
+  border-color: var(--primary, #3b82f6);
+}
+
+/* ========== گرید کارت‌ها ========== */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ========== انیمیشن ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* اضافه کردن به انتهای فایل */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.addButton:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.addButton:active {
+  transform: scale(0.98);
+}

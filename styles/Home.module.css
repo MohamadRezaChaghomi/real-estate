@@ -1,0 +1,505 @@
+/* ========== متغیرهای اختصاصی ماژول ========== */
+:root {
+  --stat-bg: var(--card-bg, #ffffff);
+  --stat-border: var(--card-border, #e2e8f0);
+  --shadow-hover: var(--shadow-lg, 0 10px 25px -5px rgba(0, 0, 0, 0.1));
+  --transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --text-primary: var(--text-primary, #1e293b);
+  --text-secondary: var(--text-secondary, #64748b);
+  --text-muted: var(--text-muted, #94a3b8);
+}
+
+.dark {
+  --stat-bg: var(--card-bg, #1e293b);
+  --stat-border: var(--card-border, #334155);
+  --text-primary: var(--text-primary, #f1f5f9);
+  --text-secondary: var(--text-secondary, #cbd5e1);
+  --text-muted: var(--text-muted, #94a3b8);
+}
+
+/* ========== کانتینر اصلی ========== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ========== هدر ========== */
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* ========== دکمه‌های اکشن ========== */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btnExport,
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: var(--transition-default);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btnExport {
+  background-color: #10b981;
+}
+
+.btnExport:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btnPrimary {
+  background-color: var(--primary);
+}
+
+.btnPrimary:hover {
+  background-color: var(--primary-dark, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btnExport:active,
+.btnPrimary:active {
+  transform: scale(0.95);
+}
+
+/* ========== گرید آمار ========== */
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  background: var(--stat-bg);
+  border: 1px solid var(--stat-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: var(--transition-default);
+  animation: fadeInUp 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.statCard:nth-child(1) { animation-delay: 0.1s; }
+.statCard:nth-child(2) { animation-delay: 0.2s; }
+.statCard:nth-child(3) { animation-delay: 0.3s; }
+.statCard:nth-child(4) { animation-delay: 0.4s; }
+
+.statCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--primary);
+}
+
+.statContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statLabel {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.statChange {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  color: #10b981;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.statIcon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.statCard:hover .statIcon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* ========== گرید اصلی (دو ستونه) ========== */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========== کارت عمومی ========== */
+.card {
+  background: var(--stat-bg);
+  border: 1px solid var(--stat-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: var(--transition-default);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewAllLink {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.viewAllLink:hover {
+  transform: translateX(-3px);
+  color: var(--primary-dark);
+}
+
+/* ========== لیست املاک اخیر ========== */
+.propertyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.propertyItem {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.propertyItem:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.dark .propertyItem:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.propertyImage {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.propertyImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.propertyItem:hover .propertyImage img {
+  transform: scale(1.05);
+}
+
+.propertyInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.propertyTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.propertyMeta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.propertyMeta span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.propertyAddress {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-clamp: 1;
+}
+
+.propertyPrice {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary);
+  direction: ltr;
+}
+
+/* ========== لیست خریداران اخیر ========== */
+.customerList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.customerItem {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease;
+}
+
+.customerItem:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.dark .customerItem:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.customerAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.customerInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.customerName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.customerRequest {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.customerMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+}
+
+.customerPhone {
+  color: #10b981;
+  direction: ltr;
+}
+
+.customerDate {
+  color: var(--text-muted);
+}
+
+/* ========== لیست قرار ملاقات‌ها ========== */
+.appointmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.appointmentItem {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border-right: 4px solid var(--primary);
+  background: rgba(59, 130, 246, 0.02);
+  transition: all 0.2s ease;
+}
+
+.appointmentItem:hover {
+  background: rgba(59, 130, 246, 0.05);
+  transform: translateX(-4px);
+}
+
+.dark .appointmentItem {
+  background: rgba(96, 165, 250, 0.02);
+}
+
+.dark .appointmentItem:hover {
+  background: rgba(96, 165, 250, 0.05);
+}
+
+.appointmentTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.appointmentCustomer {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.appointmentTime {
+  font-size: 0.7rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.emptyMessage {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1rem;
+}
+
+/* ========== لودینگ ========== */
+.loadingContainer {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--primary);
+  border-top-color: transparent;
+  border-radius: 9999px;
+  animation: spin 1s linear infinite;
+}
+
+/* ========== انیمیشن‌ها ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

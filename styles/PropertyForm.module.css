@@ -1,0 +1,287 @@
+/* ========== متغیرهای اختصاصی ماژول ========== */
+:root {
+  --form-bg: var(--card-bg, #ffffff);
+  --form-border: var(--card-border, #e2e8f0);
+  --form-shadow: var(--shadow-lg, 0 10px 25px -5px rgba(0, 0, 0, 0.1));
+  --input-bg: var(--input-bg, #ffffff);
+  --input-border: var(--input-border, #cbd5e1);
+  --input-focus-border: var(--primary, #3b82f6);
+  --input-focus-ring: rgba(59, 130, 246, 0.2);
+  --label-color: #334155;
+  --placeholder-color: #94a3b8;
+}
+
+.dark {
+  --form-bg: #1e293b;
+  --form-border: #334155;
+  --input-bg: #1e293b;
+  --input-border: #475569;
+  --label-color: #e2e8f0;
+  --placeholder-color: #64748b;
+}
+
+/* ========== کانتینر اصلی ========== */
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  border-bottom: 2px solid var(--primary, #3b82f6);
+  padding-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.dark .title {
+  color: #f1f5f9;
+}
+
+/* ========== کارت فرم ========== */
+.formCard {
+  background: var(--form-bg);
+  border: 1px solid var(--form-border);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--form-shadow);
+  transition: box-shadow 0.3s ease;
+}
+
+.formCard:hover {
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== فرم ========== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ========== سکشن‌ها ========== */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--form-border);
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground, #0f172a);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  position: relative;
+}
+
+.sectionTitle::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary, #3b82f6), transparent);
+  margin-left: 1rem;
+}
+
+/* ========== فیلد ========== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--label-color);
+}
+
+/* ========== اینپوت‌ها ========== */
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  color: var(--foreground, #0f172a);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-ring);
+  outline: none;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--placeholder-color);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+/* ========== گرید و ردیف ========== */
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ========== چک‌باکس‌ها ========== */
+.checkboxGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--foreground, #0f172a);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.checkboxLabel:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--input-border);
+  accent-color: var(--primary, #3b82f6);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.checkbox:checked {
+  background-color: var(--primary, #3b82f6);
+  border-color: var(--primary, #3b82f6);
+}
+
+/* ========== آپلود فایل ========== */
+.fileUpload {
+  position: relative;
+  width: 100%;
+}
+
+.fileInput {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 2rem 1rem;
+  background: var(--input-bg);
+  border: 2px dashed var(--input-border);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--placeholder-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fileLabel:hover {
+  border-color: var(--primary, #3b82f6);
+  background: rgba(59, 130, 246, 0.03);
+  color: var(--primary, #3b82f6);
+}
+
+/* ========== دکمه ثبت ========== */
+.submitButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: var(--primary, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.submitButton:hover {
+  background: var(--primary-dark, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+/* ========== انیمیشن ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

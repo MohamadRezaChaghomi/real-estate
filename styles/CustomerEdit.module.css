@@ -1,0 +1,217 @@
+/* ========== متغیرهای اختصاصی ماژول ========== */
+:root {
+  --form-customer-bg: var(--card-bg, #ffffff);
+  --form-customer-border: var(--card-border, #e2e8f0);
+  --form-customer-shadow: var(--shadow-lg, 0 10px 25px -5px rgba(0, 0, 0, 0.1));
+  --input-customer-bg: var(--input-bg, #ffffff);
+  --input-customer-border: var(--input-border, #cbd5e1);
+  --input-focus-border: var(--primary, #3b82f6);
+  --input-focus-ring: rgba(59, 130, 246, 0.2);
+  --label-color: #334155;
+  --placeholder-color: #94a3b8;
+  --text-primary: #1e293b;
+  --spinner-color: var(--primary, #3b82f6);
+}
+
+.dark {
+  --form-customer-bg: #1e293b;
+  --form-customer-border: #334155;
+  --input-customer-bg: #1e293b;
+  --input-customer-border: #475569;
+  --label-color: #e2e8f0;
+  --placeholder-color: #64748b;
+  --text-primary: #f1f5f9;
+  --spinner-color: #60a5fa;
+}
+
+/* ========== کانتینر اصلی ========== */
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--primary, #3b82f6);
+  padding-bottom: 0.75rem;
+  display: inline-block;
+}
+
+/* ========== کارت فرم ========== */
+.formCard {
+  background: var(--form-customer-bg);
+  border: 1px solid var(--form-customer-border);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--form-customer-shadow);
+  transition: box-shadow 0.3s ease;
+}
+
+.formCard:hover {
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== فرم ========== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* ========== سکشن‌ها ========== */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--form-customer-border);
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  position: relative;
+}
+
+.sectionTitle::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary, #3b82f6), transparent);
+  margin-left: 1rem;
+}
+
+/* ========== فیلد ========== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--label-color);
+}
+
+/* ========== اینپوت‌ها ========== */
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-customer-bg);
+  border: 1px solid var(--input-customer-border);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-ring);
+  outline: none;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--placeholder-color);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+/* ========== گرید ========== */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========== دکمه ثبت ========== */
+.submitButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: var(--primary, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover {
+  background: var(--primary-dark, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+/* ========== لودینگ ========== */
+.loadingContainer {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--spinner-color);
+  border-top-color: transparent;
+  border-radius: 9999px;
+  animation: spin 1s linear infinite;
+}
+
+/* ========== انیمیشن‌ها ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
