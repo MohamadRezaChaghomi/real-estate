@@ -1,5 +1,6 @@
 import Transaction from "@/models/Transaction";
 import { connectDB } from "@/lib/mongodb";
+import { serialize } from "@/lib/serialize";
 
 export async function getTransactions(filters = {}, sort = {}) {
   await connectDB();
@@ -29,9 +30,9 @@ export async function getTransactions(filters = {}, sort = {}) {
 
     if (filters.limit) queryBuilder = queryBuilder.limit(Number(filters.limit));
 
-    return await queryBuilder;
+    const res = await queryBuilder;
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getTransactions:", error);
     throw error;
   }
 }
@@ -39,12 +40,12 @@ export async function getTransactions(filters = {}, sort = {}) {
 export async function getTransaction(id) {
   await connectDB();
   try {
-    return await Transaction.findById(id)
+    const res = await Transaction.findById(id)
       .populate("propertyId")
       .populate("customerId")
       .lean(); // ✅
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getTransaction:", error);
     throw error;
   }
 }
@@ -53,9 +54,8 @@ export async function createTransaction(data) {
   await connectDB();
   try {
     const transaction = await Transaction.create(data);
-    return transaction.toObject(); // ✅
+    return serialize(transaction.toObject());
   } catch (error) {
-    console.error("خطا در createTransaction:", error);
     throw error;
   }
 }
@@ -69,7 +69,6 @@ export async function updateTransaction(id, data) {
     }).lean(); // ✅
     return updated;
   } catch (error) {
-    console.error("خطا در updateTransaction:", error);
     throw error;
   }
 }
@@ -87,7 +86,6 @@ export async function deleteTransaction(id, soft = true) {
       return await Transaction.findByIdAndDelete(id).lean(); // ✅
     }
   } catch (error) {
-    console.error("خطا در deleteTransaction:", error);
     throw error;
   }
 }
@@ -117,7 +115,6 @@ export async function getMonthlyIncome() {
 
     return result.length > 0 ? result[0].total : 0;
   } catch (error) {
-    console.error("خطا در getMonthlyIncome:", error);
     throw error;
   }
 }

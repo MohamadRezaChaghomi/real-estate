@@ -12,8 +12,8 @@ const vazir = Vazirmatn({
 });
 
 export const metadata = {
-  title: "سامانه مدیریت املاک | حرفه‌ای",
-  description: "سیستم مدیریت املاک با قابلیت‌های پیشرفته",
+  title: "خانه ی پدری | سامانه مدیریت املاک",
+  description: "سامانه مدیریت و معاملات املاک خانه ی پدری - بهترین راه حل برای مدیریت ملک",
 };
 
 export default function RootLayout({ children }) {
@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
           <main className={styles.main}>{children}</main>
           <Toaster position="top-left" />
           <footer className={styles.footer}>
-            © {new Date().getFullYear()} سامانه مدیریت املاک
+            © {new Date().getFullYear()} خانه ی پدری - سامانه مدیریت املاک
           </footer>
         </ThemeProvider>
       </body>

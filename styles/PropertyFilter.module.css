@@ -1,104 +1,123 @@
+/* styles/PropertyFilter.module.css */
+
 .filterContainer {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border-radius: 1.5rem;
   padding: 1.5rem;
-  margin-bottom: 2rem;
-  transition: box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px var(--shadow-color);
+  margin: 1.5rem 0;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s ease;
 }
 
 .filterContainer:hover {
-  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-gold);
 }
 
 .filterHeader {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent-gold);
 }
 
 .filterTitle {
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .resetButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  background: transparent;
+  background: none;
   border: none;
+  color: var(--danger);
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
 }
 
 .resetButton:hover {
-  color: #ef4444;
   background: rgba(239, 68, 68, 0.1);
-  transform: translateY(-1px);
+  transform: scale(1.05);
 }
 
 .filterGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .filterGrid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  margin-bottom: 1.5rem;
 }
 
 .filterInput {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  border-radius: var(--radius-md);
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
   color: var(--text-primary);
-  transition: all 0.2s ease;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .filterInput:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
   outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
 .filterInput::placeholder {
   color: var(--text-muted);
 }
 
+/* استایل برای select */
+.filterInput option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.fullRow {
+  grid-column: 1 / -1;
+}
+
 .searchButton {
-  background: var(--primary);
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  transition: all 0.2s ease;
+  width: 100%;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-gold);
+  color: #1e293b;
   border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  margin-top: 1.5rem;
-  font-size: 0.875rem;
+  transition: all 0.3s ease;
 }
 
 .searchButton:hover {
-  background: var(--primary-dark);
+  background: var(--accent-gold-dark);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 20px -5px var(--accent-gold);
 }
 
-.searchButton:active {
-  transform: scale(0.95);
+@media (max-width: 768px) {
+  .filterGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .filterContainer {
+    padding: 1rem;
+  }
 }

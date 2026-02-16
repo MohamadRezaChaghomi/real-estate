@@ -211,6 +211,12 @@
   animation: spin 1s linear infinite;
 }
 
+.actionsBar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

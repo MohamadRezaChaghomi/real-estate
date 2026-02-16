@@ -11,7 +11,6 @@ export default function NewPropertyPage() {
   const [form, setForm] = useState({
     propertyType: "apartment",
     saleType: "sale",
-    title: "",
     area: "",
     rooms: "",
     floor: "",
@@ -32,6 +31,7 @@ export default function NewPropertyPage() {
     balcony: false,
     flooringType: "",
     wallType: "",
+    cabinetMaterial: "",
     wardrobe: false,
     fireplace: false,
     intercom: "none",
@@ -124,17 +124,7 @@ export default function NewPropertyPage() {
                 </select>
               </div>
             </div>
-            <div className={styles.field}>
-              <input
-                name="title"
-                type="text"
-                placeholder="عنوان ملک"
-                className={styles.input}
-                value={form.title}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            {/* عنوان حذف شد - ملک‌ها اسم ندارند */}
           </section>
 
           {/* مشخصات فیزیکی */}
@@ -296,6 +286,18 @@ export default function NewPropertyPage() {
                   <option value="">انتخاب کنید</option>
                   <option value="paint">نقاشی</option>
                   <option value="wallpaper">کاغذ دیواری</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>متریال کابینت</label>
+                <select name="cabinetMaterial" className={styles.select} value={form.cabinetMaterial} onChange={handleChange}>
+                  <option value="">انتخاب کنید</option>
+                  <option value="mdf">ام‌دی‌اف</option>
+                  <option value="highGloss">های‌گلاس</option>
+                  <option value="acrylic">اکریلیک</option>
+                  <option value="wood">چوب</option>
+                  <option value="laminate">لمینت</option>
                   <option value="other">سایر</option>
                 </select>
               </div>

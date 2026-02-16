@@ -1,0 +1,83 @@
+/* Theme color overrides - fixes hardcoded colors to use CSS variables */
+
+/* Text color fixes replacing hardcoded #1e293b and #f1f5f9 */
+[class*="title"] { color: var(--text-primary) !important; }
+[class*="heading"] { color: var(--text-primary) !important; }
+
+.categoryBadge,
+.avatar {
+  color: var(--text-primary) !important;
+  background: var(--accent-gold) !important;
+}
+
+.badge {
+  color: var(--text-primary) !important;
+}
+
+/* Navbar fixes */
+.themeToggleActive {
+  color: var(--text-primary) !important;
+}
+
+/* Error and NotFound pages */
+.errorCode,
+.code {
+  color: var(--accent-gold) !important;
+}
+
+/* Home page stat cards */
+.statValue {
+  color: var(--accent-gold) !important;
+}
+
+/* Form and input text */
+.label,
+.placeholder {
+  color: var(--text-primary) !important;
+}
+
+/* Menu items */
+.menuItem:hover {
+  color: var(--text-primary) !important;
+}
+
+/* Property cards */
+.price {
+  color: var(--text-primary) !important;
+}
+
+/* All main text elements */
+p, span, div, a {
+  color: inherit;
+}
+
+/* Button text always stays readable */
+button {
+  color: inherit;
+}
+
+/* Ensure input text is readable */
+input,
+textarea,
+select {
+  color: var(--text-primary) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Additional dark mode tweaks */
+:global(.dark) {
+  --text-color-on-gold: #1a1a1a;
+}
+
+/* Text on gold backgrounds should be dark */
+[style*="background"] {
+  color-scheme: light;
+}
+
+:global(.dark) [style*="background"] {
+  color-scheme: dark;
+}

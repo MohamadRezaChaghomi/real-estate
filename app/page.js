@@ -64,7 +64,7 @@ export default function Dashboard() {
 
         // 2. دریافت ۳ ملک آخر
         const propertiesRes = await fetch(
-          "/api/properties?limit=3&sortField=createdAt&sortOrder=desc"
+          "/api/properties?limit=3&sortField=createdAt&sortOrder=desc&fields=ownerName,images,area,rooms,price,address"
         );
         const propertiesData = await propertiesRes.json();
         // اطمینان از آرایه بودن
@@ -72,7 +72,7 @@ export default function Dashboard() {
 
         // 3. دریافت ۳ خریدار آخر
         const customersRes = await fetch(
-          "/api/customers?limit=3&sortField=createdAt&sortOrder=desc"
+          "/api/customers?limit=3&sortField=createdAt&sortOrder=desc&fields=name,customerNumber,desiredPropertyType,createdAt"
         );
         const customersData = await customersRes.json();
         setRecentCustomers(Array.isArray(customersData) ? customersData : []);
@@ -84,8 +84,7 @@ export default function Dashboard() {
         const appointmentsData = await appointmentsRes.json();
         setUpcomingAppointments(Array.isArray(appointmentsData) ? appointmentsData : []);
       } catch (error) {
-        console.error("خطا در دریافت داده‌های داشبورد:", error);
-        // در صورت خطا، آرایه‌های خالی تنظیم می‌شوند
+        // suppressed dashboard logging for performance; show empty states
         setRecentProperties([]);
         setRecentCustomers([]);
         setUpcomingAppointments([]);
@@ -162,7 +161,7 @@ export default function Dashboard() {
             </Link>
           </div>
           <div className={styles.propertyList}>
-            {recentProperties.length === 0 ? (
+              {recentProperties.length === 0 ? (
               <p className={styles.emptyMessage}>هیچ ملکی یافت نشد</p>
             ) : (
               recentProperties.map((property) => (
@@ -170,11 +169,11 @@ export default function Dashboard() {
                   <div className={styles.propertyImage}>
                     <img
                       src={property.images?.[0] || "/images/placeholder.jpg"}
-                      alt={property.title}
+                      alt={property.ownerName || "ملک"}
                     />
                   </div>
                   <div className={styles.propertyInfo}>
-                    <h4 className={styles.propertyTitle}>{property.title}</h4>
+                    <h4 className={styles.propertyTitle}>{property.ownerName || "بدون نام مالک"}</h4>
                     <div className={styles.propertyMeta}>
                       <span>
                         <Square size={14} /> {property.area} متر

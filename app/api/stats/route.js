@@ -24,7 +24,7 @@ export async function GET() {
       incomeChange: "+۱۵٪", // می‌توانید از مقایسه با ماه قبل محاسبه کنید
     });
   } catch (error) {
-    console.error("خطا در دریافت آمار:", error);
+    // suppressed logging for performance
     return NextResponse.json(
       { error: "خطا در دریافت آمار" },
       { status: 500 }

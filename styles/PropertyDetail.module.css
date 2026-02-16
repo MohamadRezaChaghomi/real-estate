@@ -1,273 +1,360 @@
+/* styles/PropertyDetail.module.css */
+
 .container {
-  max-width: 72rem;
+  max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding: 1rem;
-  animation: fadeIn 0.4s ease-out;
+  padding: 2rem 1rem;
 }
 
 .notFound {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  padding: 3rem 1.5rem;
   text-align: center;
-  color: #ef4444;
-  font-size: 1.125rem;
-  box-shadow: var(--shadow-md);
+  padding: 4rem 2rem;
+  background: var(--bg-card);
+  border-radius: 2rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-top: 2rem;
 }
 
+/* نوار اکشن (ویرایش/حذف) */
+.actionsBar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.editButtonInline,
+.deleteButtonInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.editButtonInline {
+  background: var(--info);
+  color: white;
+}
+
+.editButtonInline:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px var(--info);
+}
+
+.deleteButtonInline {
+  background: var(--danger);
+  color: white;
+}
+
+.deleteButtonInline:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px var(--danger);
+}
+
+/* گالری تصاویر */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .galleryImage {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: var(--radius-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 1rem;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
 }
 
 .galleryImage:hover {
+  border-color: var(--accent-gold);
   transform: scale(1.02);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 20px var(--shadow-hover);
 }
 
+/* کارت اصلی */
 .card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border-radius: 2rem;
   padding: 2rem;
-  box-shadow: var(--shadow-md);
-  transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  backdrop-filter: blur(10px);
 }
 
 .header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--accent-gold);
 }
 
 .title {
-  font-size: 1.875rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
+.ownerPhone {
+  direction: ltr;
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
 .badgeGroup {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .badge {
-  background: rgba(var(--primary-rgb), 0.1);
-  color: var(--primary);
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
   transition: all 0.2s ease;
 }
 
 .badge:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateY(-1px);
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.1);
 }
 
 .badgeExchange {
-  background: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
-}
-
-.badgeExchange:hover {
-  background: #f59e0b;
-  color: white;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--accent-gold);
+  border-color: var(--accent-gold-light);
 }
 
 .priceBox {
-  text-align: right;
+  text-align: left;
+  background: var(--bg-secondary);
+  padding: 1rem 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border-color);
 }
 
 .mainPrice {
-  font-size: 1.875rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: var(--primary);
-  direction: ltr;
+  color: var(--accent-gold);
+  line-height: 1.2;
 }
 
 .rentPrice {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
+  font-size: 1rem;
+  color: var(--text-muted);
   margin-top: 0.25rem;
 }
 
+/* مشخصات اصلی */
 .specsGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
-@media (min-width: 768px) {
-  .specsGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .specCard {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
   padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .specCard:hover {
-  border-color: var(--primary);
+  border-color: var(--accent-gold);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
 }
 
 .specLabel {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 .specValue {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
+/* بخش‌ها */
 .section {
   margin-bottom: 2rem;
 }
 
 .sectionTitle {
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 1rem;
-  position: relative;
-  display: inline-block;
-}
-
-.sectionTitle::after {
-  content: "";
-  position: absolute;
-  bottom: -0.25rem;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--primary), transparent);
-  border-radius: 2px;
+  border-right: 4px solid var(--accent-gold);
+  padding-right: 1rem;
 }
 
 .row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
-@media (min-width: 768px) {
-  .row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 .materialItem {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  flex: 1;
+  min-width: 150px;
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  text-align: center;
 }
 
 .materialTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
 }
 
-.address,
-.description {
+.address {
+  background: var(--bg-secondary);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
   color: var(--text-primary);
-  line-height: 1.7;
-  padding: 0.5rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .description {
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  line-height: 1.8;
   white-space: pre-wrap;
 }
 
+/* اطلاعات مالک */
 .ownerSection {
-  border-top: 1px solid var(--card-border);
-  padding-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 1.5rem;
+  border: 1px solid var(--border-color);
 }
 
 .ownerInfo {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-@media (min-width: 768px) {
-  .ownerInfo {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.ownerInfo > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
 }
 
 .ownerLabel {
-  color: var(--text-secondary);
-  margin-left: 0.5rem;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .ownerValue {
-  font-weight: 500;
-  color: var(--text-primary);
+  color: var(--accent-gold);
+  font-weight: 600;
 }
 
+/* فوتر (تاریخ) */
 .footer {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--card-border);
-  font-size: 0.75rem;
-  color: var(--text-secondary);
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 1rem;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .header {
+    flex-direction: column;
+  }
+
+  .priceBox {
+    text-align: right;
+    width: 100%;
+  }
+
+  .mainPrice {
+    font-size: 1.5rem;
+  }
+
+  .specsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ownerInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ownerInfo > div {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .specsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
   }
 }

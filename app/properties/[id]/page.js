@@ -1,6 +1,7 @@
 import { getProperty } from "@/controllers/propertyController";
 import PropertyMap from "@/components/PropertyMap";
 import styles from "@/styles/PropertyDetail.module.css";
+import PropertyActions from "@/components/PropertyActions";
 
 const propertyTypeLabels = {
   apartment: "آپارتمان",
@@ -46,7 +47,8 @@ const intercomLabels = {
 };
 
 export default async function PropertyDetail({ params }) {
-  const property = await getProperty(params.id);
+  const { id } = await params;
+  const property = await getProperty(id);
 
   if (!property) {
     return (
@@ -58,6 +60,9 @@ export default async function PropertyDetail({ params }) {
 
   return (
     <div className={styles.container}>
+      <div className={styles.actionsBar}>
+        <PropertyActions id={property._id} />
+      </div>
       {/* گالری تصاویر */}
       {property.images?.length > 0 && (
         <div className={styles.gallery}>
@@ -70,7 +75,8 @@ export default async function PropertyDetail({ params }) {
       <div className={styles.card}>
         <div className={styles.header}>
           <div>
-            <h1 className={styles.title}>{property.title}</h1>
+            <h1 className={styles.title}>{property.ownerName || "بدون نام مالک"}</h1>
+            {property.ownerPhone && <div className={styles.ownerPhone} dir="ltr">{property.ownerPhone}</div>}
             <div className={styles.badgeGroup}>
               <span className={styles.badge}>
                 {propertyTypeLabels[property.propertyType]}
@@ -159,6 +165,24 @@ export default async function PropertyDetail({ params }) {
             <h4 className={styles.materialTitle}>متریال دیوار</h4>
             <span className={styles.badge}>
               {wallLabels[property.wallType] || "-"}
+            </span>
+          </div>
+          <div className={styles.materialItem}>
+            <h4 className={styles.materialTitle}>متریال کابینت</h4>
+            <span className={styles.badge}>
+              {property.cabinetMaterial === "mdf"
+                ? "ام‌دی‌اف"
+                : property.cabinetMaterial === "highGloss"
+                ? "های‌گلاس"
+                : property.cabinetMaterial === "acrylic"
+                ? "اکریلیک"
+                : property.cabinetMaterial === "wood"
+                ? "چوب"
+                : property.cabinetMaterial === "laminate"
+                ? "لمینت"
+                : property.cabinetMaterial === "other"
+                ? "سایر"
+                : "-"}
             </span>
           </div>
         </div>

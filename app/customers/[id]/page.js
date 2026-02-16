@@ -1,5 +1,6 @@
 import { getCustomer } from "@/controllers/customerController";
 import styles from "@/styles/CustomerDetail.module.css";
+import CustomerActions from "@/components/CustomerActions";
 
 const propertyTypeLabels = {
   apartment: "آپارتمان",
@@ -16,7 +17,8 @@ const saleTypeLabels = {
 };
 
 export default async function CustomerDetail({ params }) {
-  const customer = await getCustomer(params.id);
+  const { id } = await params;
+  const customer = await getCustomer(id);
 
   if (!customer) {
     return (
@@ -28,6 +30,9 @@ export default async function CustomerDetail({ params }) {
 
   return (
     <div className={styles.container}>
+      <div className={styles.actionsBar}>
+        <CustomerActions id={customer._id} />
+      </div>
       <div className={styles.card}>
         <div className={styles.header}>
           <div className={styles.avatarLarge}>

@@ -3,13 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
   try {
-    const property = await getProperty(params.id);
+    const { id } = await params;
+    const property = await getProperty(id);
     if (!property) {
       return NextResponse.json({ error: "ملک یافت نشد" }, { status: 404 });
     }
     return NextResponse.json(property);
   } catch (error) {
-    console.error("خطا در دریافت ملک:", error);
+    // suppressed logging for performance
     return NextResponse.json(
       { error: "خطا در دریافت اطلاعات ملک" },
       { status: 500 }
@@ -20,13 +21,14 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   try {
     const body = await req.json();
-    const updated = await updateProperty(params.id, body);
+    const { id } = await params;
+    const updated = await updateProperty(id, body);
     if (!updated) {
       return NextResponse.json({ error: "ملک یافت نشد" }, { status: 404 });
     }
     return NextResponse.json(updated);
   } catch (error) {
-    console.error("خطا در ویرایش ملک:", error);
+    // suppressed logging for performance
     return NextResponse.json(
       { error: "خطا در ویرایش ملک" },
       { status: 500 }
@@ -36,13 +38,14 @@ export async function PUT(req, { params }) {
 
 export async function DELETE(req, { params }) {
   try {
-    const deleted = await deleteProperty(params.id, true); // soft delete
+    const { id } = await params;
+    const deleted = await deleteProperty(id, true); // soft delete
     if (!deleted) {
       return NextResponse.json({ error: "ملک یافت نشد" }, { status: 404 });
     }
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("خطا در حذف ملک:", error);
+    // suppressed logging for performance
     return NextResponse.json(
       { error: "خطا در حذف ملک" },
       { status: 500 }

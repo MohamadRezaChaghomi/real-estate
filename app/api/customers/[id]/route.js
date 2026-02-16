@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
   try {
-    const customer = await getCustomer(params.id);
+    const { id } = await params;
+    const customer = await getCustomer(id);
     if (!customer) {
       return NextResponse.json({ error: "خریدار یافت نشد" }, { status: 404 });
     }
@@ -20,7 +21,8 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   try {
     const body = await req.json();
-    const updated = await updateCustomer(params.id, body);
+    const { id } = await params;
+    const updated = await updateCustomer(id, body);
     if (!updated) {
       return NextResponse.json({ error: "خریدار یافت نشد" }, { status: 404 });
     }
@@ -36,7 +38,8 @@ export async function PUT(req, { params }) {
 
 export async function DELETE(req, { params }) {
   try {
-    const deleted = await deleteCustomer(params.id, true); // soft delete
+    const { id } = await params;
+    const deleted = await deleteCustomer(id, true); // soft delete
     if (!deleted) {
       return NextResponse.json({ error: "خریدار یافت نشد" }, { status: 404 });
     }

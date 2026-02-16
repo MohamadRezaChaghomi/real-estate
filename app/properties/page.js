@@ -1,5 +1,6 @@
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilter from "@/components/PropertyFilter";
+import SearchHeader from "@/components/SearchHeader";
 import SortBar from "@/components/SortBar";
 import { getProperties } from "@/controllers/propertyController";
 import Link from "next/link";
@@ -7,9 +8,12 @@ import { Plus } from "lucide-react";
 import styles from "@/styles/PropertiesPage.module.css";
 
 export default async function PropertiesPage({ searchParams }) {
-  const properties = await getProperties(searchParams, {
-    field: searchParams.sortField,
-    order: searchParams.sortOrder,
+  const sp = await searchParams;
+  // ensure we don't fetch all records by default — set a sensible limit
+  const filters = { ...(sp || {}), limit: (sp && sp.limit) || "20" };
+  const properties = await getProperties(filters, {
+    field: sp?.sortField,
+    order: sp?.sortOrder,
   });
 
   // ✅ اطمینان از آرایه بودن
@@ -28,6 +32,7 @@ export default async function PropertiesPage({ searchParams }) {
         </Link>
       </div>
 
+      <SearchHeader placeholder="جستجوی مالک، آدرس یا شماره..." />
       <PropertyFilter />
       <SortBar />
 

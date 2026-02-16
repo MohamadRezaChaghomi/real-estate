@@ -1,5 +1,6 @@
 import Customer from "@/models/Customer";
 import { connectDB } from "@/lib/mongodb";
+import { serialize } from "@/lib/serialize";
 
 export async function getCustomers(filters = {}, sort = {}) {
   await connectDB();
@@ -13,6 +14,15 @@ export async function getCustomers(filters = {}, sort = {}) {
       if (filters.minPrice) query.desiredPrice.$gte = Number(filters.minPrice);
       if (filters.maxPrice) query.desiredPrice.$lte = Number(filters.maxPrice);
     }
+        
+      // جستجوی عمومی بر اساس نام یا شماره مشتری
+      if (filters.q) {
+        const q = filters.q;
+        query.$or = [
+          { name: { $regex: q, $options: "i" } },
+          { customerNumber: { $regex: q, $options: "i" } },
+        ];
+      }
 
     let sortQuery = { createdAt: -1 };
     if (sort.field && sort.order) {
@@ -21,15 +31,23 @@ export async function getCustomers(filters = {}, sort = {}) {
 
     let queryBuilder = Customer.find(query)
       .sort(sortQuery)
-      .lean(); // ✅
+      ;
+
+    // امکان انتخاب فیلدها برای کاهش حجم پاسخ
+    if (filters.fields) {
+      const fields = String(filters.fields).split(",").map((f) => f.trim()).join(" ");
+      queryBuilder = queryBuilder.select(fields);
+    }
+
+    queryBuilder = queryBuilder.lean(); // ✅
 
     if (filters.limit) {
       queryBuilder = queryBuilder.limit(Number(filters.limit));
     }
 
-    return await queryBuilder;
+    const res = await queryBuilder;
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getCustomers:", error);
     throw error;
   }
 }
@@ -37,9 +55,9 @@ export async function getCustomers(filters = {}, sort = {}) {
 export async function getCustomer(id) {
   await connectDB();
   try {
-    return await Customer.findById(id).lean(); // ✅
+    const res = await Customer.findById(id).lean(); // ✅
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getCustomer:", error);
     throw error;
   }
 }
@@ -50,9 +68,8 @@ export async function createCustomer(data) {
     const count = await Customer.countDocuments();
     data.customerNumber = `CUST-${String(count + 1).padStart(6, "0")}`;
     const customer = await Customer.create(data);
-    return customer.toObject(); // ✅
+    return serialize(customer.toObject());
   } catch (error) {
-    console.error("خطا در createCustomer:", error);
     throw error;
   }
 }
@@ -66,7 +83,6 @@ export async function updateCustomer(id, data) {
     }).lean(); // ✅
     return updated;
   } catch (error) {
-    console.error("خطا در updateCustomer:", error);
     throw error;
   }
 }
@@ -84,7 +100,6 @@ export async function deleteCustomer(id, soft = true) {
       return await Customer.findByIdAndDelete(id).lean(); // ✅
     }
   } catch (error) {
-    console.error("خطا در deleteCustomer:", error);
     throw error;
   }
 }

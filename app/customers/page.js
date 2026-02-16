@@ -1,13 +1,18 @@
 import { getCustomers } from "@/controllers/customerController";
 import CustomerCard from "@/components/CustomerCard";
+import CustomerFilter from "@/components/CustomerFilter";
+import SearchHeader from "@/components/SearchHeader";
+import CustomerSortBar from "@/components/CustomerSortBar";
 import Link from "next/link";
 import { UserPlus } from "lucide-react";
 import styles from "@/styles/CustomersPage.module.css";
 
 export default async function CustomersPage({ searchParams }) {
-  const customers = await getCustomers(searchParams, {
-    field: searchParams.sortField,
-    order: searchParams.sortOrder,
+  const sp = await searchParams;
+  const filters = { ...(sp || {}), limit: (sp && sp.limit) || "20" };
+  const customers = await getCustomers(filters, {
+    field: sp?.sortField,
+    order: sp?.sortOrder,
   });
 
   const customersArray = Array.isArray(customers) ? customers : [];
@@ -24,6 +29,10 @@ export default async function CustomersPage({ searchParams }) {
           ثبت خریدار جدید
         </Link>
       </div>
+
+      <SearchHeader placeholder="جستجوی نام یا شماره خریدار..." />
+      <CustomerFilter />
+      <CustomerSortBar />
 
       {customersArray.length === 0 ? (
         <div className={styles.emptyState}>

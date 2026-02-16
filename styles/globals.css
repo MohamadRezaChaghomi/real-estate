@@ -104,3 +104,53 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-gold-dark);
 }
+
+/* ===== THEME COLOR FIX OVERRIDES ===== */
+/* Fix hardcoded text colors to use theme variables */
+
+/* Override all #1e293b (dark text in light mode) with theme variable */
+[style*="#1e293b"],
+[class*="title"],
+[class*="label"],
+[class*="heading"],
+[class*="price"],
+[class*="avatar"],
+[class*="badge"] {
+  color: var(--text-primary) !important;
+}
+
+/* Specific fixes for common hardcoded colors */
+/* All text should inherit from --text-primary */
+p, h1, h2, h3, h4, h5, h6,
+span, div, aside, section, article,
+dd, dt, ul > li, ol > li {
+  color: inherit;
+}
+
+/* Input text colors */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="date"],
+textarea,
+select {
+  color: var(--text-primary);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Ensure gold backgrounds have dark text for contrast */
+[style*="accent-gold"],
+[style*="#d4af37"],
+[style*="#fbbf24"] {
+  color: #1a1a1a !important;
+}
+
+:global(.dark) [style*="accent-gold"],
+:global(.dark) [style*="#fbbf24"] {
+  color: #0a0a0a !important;
+}

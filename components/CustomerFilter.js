@@ -2,23 +2,21 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, X } from "lucide-react";
-import styles from "@/styles/PropertyFilter.module.css";
-import SearchBox from "./SearchBox";
+import { X } from "lucide-react";
+import styles from "@/styles/CustomerFilter.module.css";
 
-export default function PropertyFilter() {
+export default function CustomerFilter() {
   const router = useRouter();
   const params = useSearchParams();
 
   const [filters, setFilters] = useState({
-    propertyType: params.get("propertyType") || "",
-    saleType: params.get("saleType") || "",
+    name: params.get("name") || "",
+    desiredPropertyType: params.get("desiredPropertyType") || "",
+    desiredSaleType: params.get("desiredSaleType") || "",
     minPrice: params.get("minPrice") || "",
     maxPrice: params.get("maxPrice") || "",
     minArea: params.get("minArea") || "",
     maxArea: params.get("maxArea") || "",
-    rooms: params.get("rooms") || "",
-    address: params.get("address") || "",
   });
 
   const handleChange = (e) => {
@@ -28,25 +26,20 @@ export default function PropertyFilter() {
   const handleSearch = () => {
     const query = new URLSearchParams();
     Object.entries(filters).forEach(([k, v]) => v && query.set(k, v));
-    router.push(`/properties?${query.toString()}`);
-  };
-
-  const handleDebouncedSearch = (val) => {
-    setFilters((prev) => ({ ...prev, address: val }));
+    router.push(`/customers?${query.toString()}`);
   };
 
   const resetFilters = () => {
     setFilters({
-      propertyType: "",
-      saleType: "",
+      name: "",
+      desiredPropertyType: "",
+      desiredSaleType: "",
       minPrice: "",
       maxPrice: "",
       minArea: "",
       maxArea: "",
-      rooms: "",
-      address: "",
     });
-    router.push("/properties");
+    router.push("/customers");
   };
 
   const hasFilters = Object.values(filters).some((v) => v !== "");
@@ -63,10 +56,18 @@ export default function PropertyFilter() {
       </div>
 
       <div className={styles.filterGrid}>
-        <select
-          name="propertyType"
+        <input
+          name="name"
+          placeholder="نام خریدار"
           className={styles.filterInput}
-          value={filters.propertyType}
+          value={filters.name}
+          onChange={handleChange}
+        />
+
+        <select
+          name="desiredPropertyType"
+          className={styles.filterInput}
+          value={filters.desiredPropertyType}
           onChange={handleChange}
         >
           <option value="">همه نوع ملک</option>
@@ -74,61 +75,60 @@ export default function PropertyFilter() {
           <option value="villa">ویلایی</option>
           <option value="commercial">تجاری</option>
           <option value="garden">باغ</option>
+          <option value="any">هر نوع</option>
         </select>
 
         <select
-          name="saleType"
+          name="desiredSaleType"
           className={styles.filterInput}
-          value={filters.saleType}
+          value={filters.desiredSaleType}
           onChange={handleChange}
         >
-          <option value="">همه نوع فروش</option>
-          <option value="sale">فروش</option>
+          <option value="">همه نوع خرید</option>
+          <option value="sale">خرید</option>
           <option value="rent">رهن و اجاره</option>
+          <option value="both">هر دو</option>
         </select>
 
         <input
           name="minPrice"
           placeholder="حداقل قیمت"
+          type="number"
           className={styles.filterInput}
           value={filters.minPrice}
           onChange={handleChange}
         />
+
         <input
           name="maxPrice"
           placeholder="حداکثر قیمت"
+          type="number"
           className={styles.filterInput}
           value={filters.maxPrice}
           onChange={handleChange}
         />
+
         <input
           name="minArea"
           placeholder="حداقل متراژ"
+          type="number"
           className={styles.filterInput}
           value={filters.minArea}
           onChange={handleChange}
         />
+
         <input
           name="maxArea"
           placeholder="حداکثر متراژ"
+          type="number"
           className={styles.filterInput}
           value={filters.maxArea}
           onChange={handleChange}
         />
-        <input
-          name="rooms"
-          placeholder="حداقل خواب"
-          className={styles.filterInput}
-          value={filters.rooms}
-          onChange={handleChange}
-        />
-        <div className={styles.fullRow}>
-          <SearchBox value={filters.address} onSearch={handleDebouncedSearch} placeholder="منطقه / آدرس" />
-        </div>
       </div>
 
       <button onClick={handleSearch} className={styles.searchButton}>
-        <Search size={18} /> اعمال فیلتر
+        جستجو
       </button>
     </div>
   );

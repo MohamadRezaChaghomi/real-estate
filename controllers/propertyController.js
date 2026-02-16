@@ -1,6 +1,7 @@
 import Property from "@/models/Property";
 import { connectDB } from "@/lib/mongodb";
 import { createAuditLog } from "@/lib/audit";
+import { serialize } from "@/lib/serialize";
 
 /**
  * دریافت لیست املاک با فیلتر و مرتب‌سازی
@@ -30,6 +31,16 @@ export async function getProperties(filters = {}, sort = {}) {
     if (filters.deedType) query.deedType = filters.deedType;
     if (filters.exchange === "true") query.exchange = true;
 
+    // جستجو عمومی (q) روی نام مالک، شماره مالک یا آدرس
+    if (filters.q) {
+      const q = filters.q;
+      query.$or = [
+        { ownerName: { $regex: q, $options: "i" } },
+        { ownerPhone: { $regex: q, $options: "i" } },
+        { address: { $regex: q, $options: "i" } },
+      ];
+    }
+
     const amenities = [
       "parking", "elevator", "storage", "balcony", "furnished",
       "fireplace", "centralAntenna", "cabinet", "hood", "wardrobe"
@@ -45,16 +56,23 @@ export async function getProperties(filters = {}, sort = {}) {
     }
 
     let queryBuilder = Property.find(query)
-      .sort(sortQuery)
-      .lean(); // ✅ ضروری
+      .sort(sortQuery);
+
+    // امکان انتخاب فیلدها برای کاهش حجم پاسخ
+    if (filters.fields) {
+      const fields = String(filters.fields).split(",").map((f) => f.trim()).join(" ");
+      queryBuilder = queryBuilder.select(fields);
+    }
+
+    queryBuilder = queryBuilder.lean(); // ✅ ضروری
 
     if (filters.limit) {
       queryBuilder = queryBuilder.limit(Number(filters.limit));
     }
 
-    return await queryBuilder;
+    const res = await queryBuilder;
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getProperties:", error);
     throw error;
   }
 }
@@ -65,9 +83,9 @@ export async function getProperties(filters = {}, sort = {}) {
 export async function getProperty(id) {
   await connectDB();
   try {
-    return await Property.findById(id).lean(); // ✅
+    const res = await Property.findById(id).lean(); // ✅
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getProperty:", error);
     throw error;
   }
 }
@@ -79,16 +97,15 @@ export async function createProperty(data) {
   await connectDB();
   try {
     const property = await Property.create(data);
-    const plainProperty = property.toObject(); // ✅ تبدیل به plain object
+    const plainProperty = property.toObject();
     await createAuditLog({
       action: "CREATE",
       collection: "Property",
       documentId: property._id,
       changes: { after: plainProperty },
     });
-    return plainProperty;
+    return serialize(plainProperty);
   } catch (error) {
-    console.error("خطا در createProperty:", error);
     throw error;
   }
 }
@@ -114,9 +131,8 @@ export async function updateProperty(id, data) {
       changes: { before, after: updated },
     });
 
-    return updated;
+    return serialize(updated);
   } catch (error) {
-    console.error("خطا در updateProperty:", error);
     throw error;
   }
 }
@@ -142,7 +158,7 @@ export async function deleteProperty(id, soft = true) {
         documentId: id,
         changes: { before: property },
       });
-      return deleted;
+      return serialize(deleted);
     } else {
       await Property.findByIdAndDelete(id);
       await createAuditLog({
@@ -154,7 +170,6 @@ export async function deleteProperty(id, soft = true) {
       return null;
     }
   } catch (error) {
-    console.error("خطا در deleteProperty:", error);
     throw error;
   }
 }

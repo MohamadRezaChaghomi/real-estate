@@ -5,7 +5,7 @@ const propertySchema = new mongoose.Schema(
     // ... (فیلدها مانند قبل) ...
     propertyType: { type: String, enum: ["apartment", "villa", "commercial", "garden"], required: true },
     saleType: { type: String, enum: ["rent", "sale"], required: true },
-    title: { type: String, required: true },
+    title: { type: String },
     area: { type: Number },
     rooms: { type: Number },
     floor: { type: Number },
@@ -33,6 +33,7 @@ const propertySchema = new mongoose.Schema(
     elevator: { type: Boolean, default: false },
     storage: { type: Boolean, default: false },
     parking: { type: Boolean, default: false },
+    cabinetMaterial: { type: String, enum: ["mdf", "highGloss", "acrylic", "wood", "laminate", "other"], default: "" },
     exchange: { type: Boolean, default: false },
     address: { type: String },
     description: { type: String },

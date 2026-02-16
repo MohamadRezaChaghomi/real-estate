@@ -1,5 +1,6 @@
 import Appointment from "@/models/Appointment";
 import { connectDB } from "@/lib/mongodb";
+import { serialize } from "@/lib/serialize";
 
 export async function getAppointments(filters = {}, sort = {}) {
   await connectDB();
@@ -28,9 +29,9 @@ export async function getAppointments(filters = {}, sort = {}) {
 
     if (filters.limit) queryBuilder = queryBuilder.limit(Number(filters.limit));
 
-    return await queryBuilder;
+    const res = await queryBuilder;
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getAppointments:", error);
     throw error;
   }
 }
@@ -38,12 +39,12 @@ export async function getAppointments(filters = {}, sort = {}) {
 export async function getAppointment(id) {
   await connectDB();
   try {
-    return await Appointment.findById(id)
+    const res = await Appointment.findById(id)
       .populate("propertyId")
       .populate("customerId")
       .lean(); // ✅
+    return serialize(res);
   } catch (error) {
-    console.error("خطا در getAppointment:", error);
     throw error;
   }
 }
@@ -52,9 +53,8 @@ export async function createAppointment(data) {
   await connectDB();
   try {
     const appointment = await Appointment.create(data);
-    return appointment.toObject(); // ✅
+    return serialize(appointment.toObject());
   } catch (error) {
-    console.error("خطا در createAppointment:", error);
     throw error;
   }
 }
@@ -68,7 +68,6 @@ export async function updateAppointment(id, data) {
     }).lean(); // ✅
     return updated;
   } catch (error) {
-    console.error("خطا در updateAppointment:", error);
     throw error;
   }
 }
@@ -86,7 +85,6 @@ export async function deleteAppointment(id, soft = true) {
       return await Appointment.findByIdAndDelete(id).lean(); // ✅
     }
   } catch (error) {
-    console.error("خطا در deleteAppointment:", error);
     throw error;
   }
 }

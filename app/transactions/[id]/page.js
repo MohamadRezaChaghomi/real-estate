@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import styles from "@/styles/TransactionDetail.module.css";
+import TransactionActions from "@/components/TransactionActions";
 
 export default function TransactionDetail({ params }) {
   const router = useRouter();
@@ -91,15 +92,7 @@ export default function TransactionDetail({ params }) {
           بازگشت به لیست تراکنش‌ها
         </Link>
         <div className={styles.actions}>
-          <Link
-            href={`/transactions/edit/${transaction._id}`}
-            className={styles.editButton}
-          >
-            <Edit size={18} /> ویرایش
-          </Link>
-          <button onClick={handleDelete} className={styles.deleteButton}>
-            <Trash2 size={18} /> حذف
-          </button>
+          <TransactionActions id={transaction._id} />
         </div>
       </div>
 

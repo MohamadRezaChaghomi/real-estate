@@ -1,23 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import styles from "@/styles/CustomerEdit.module.css";
 
 export default function EditCustomer({ params }) {
+  const { id } = use(params);
   const router = useRouter();
   const [form, setForm] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/customers/${params.id}`)
+    fetch(`/api/customers/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setForm(data);
         setLoading(false);
       });
-  }, [params.id]);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,7 @@ export default function EditCustomer({ params }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`/api/customers/${params.id}`, {
+    const res = await fetch(`/api/customers/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -34,7 +35,7 @@ export default function EditCustomer({ params }) {
 
     if (res.ok) {
       toast.success("خریدار با موفقیت ویرایش شد");
-      router.push(`/customers/${params.id}`);
+      router.push(`/customers/${id}`);
     } else {
       toast.error("خطا در ویرایش خریدار");
     }

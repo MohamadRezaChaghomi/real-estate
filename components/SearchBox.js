@@ -1,12 +1,29 @@
 "use client";
 
-export default function SearchBox({ onSearch }) {
+import { useState, useEffect } from "react";
+import { Search } from "lucide-react";
+import styles from "@/styles/SearchBox.module.css";
+
+export default function SearchBox({ value = "", onSearch, placeholder = "جستجو..." }) {
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      onSearch?.(text);
+    }, 450);
+    return () => clearTimeout(t);
+  }, [text, onSearch]);
+
   return (
-    <input
-      type="text"
-      placeholder="جستجو..."
-      className="border p-2 w-full mb-4 rounded-lg focus:ring-2 focus:ring-primary/50 dark:bg-slate-800 dark:border-slate-600 dark:text-white"
-      onChange={(e) => onSearch(e.target.value)}
-    />
+    <div className={styles.searchWrap}>
+      <Search size={16} className={styles.icon} />
+      <input
+        type="text"
+        value={text}
+        placeholder={placeholder}
+        className={styles.input}
+        onChange={(e) => setText(e.target.value)}
+      />
+    </div>
   );
 }

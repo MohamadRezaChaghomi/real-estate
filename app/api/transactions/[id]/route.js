@@ -7,7 +7,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
   try {
-    const transaction = await getTransaction(params.id);
+    const { id } = await params;
+    const transaction = await getTransaction(id);
     if (!transaction) {
       return NextResponse.json(
         { error: "تراکنش یافت نشد" },
@@ -27,7 +28,8 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
   try {
     const body = await req.json();
-    const updated = await updateTransaction(params.id, body);
+    const { id } = await params;
+    const updated = await updateTransaction(id, body);
     if (!updated) {
       return NextResponse.json(
         { error: "تراکنش یافت نشد" },
@@ -46,7 +48,8 @@ export async function PUT(req, { params }) {
 
 export async function DELETE(req, { params }) {
   try {
-    const deleted = await deleteTransaction(params.id, true); // soft delete
+    const { id } = await params;
+    const deleted = await deleteTransaction(id, true); // soft delete
     if (!deleted) {
       return NextResponse.json(
         { error: "تراکنش یافت نشد" },

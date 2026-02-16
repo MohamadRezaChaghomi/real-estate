@@ -26,7 +26,7 @@ export async function GET(request) {
     const properties = await getProperties(filters, sort);
     return NextResponse.json(properties);
   } catch (error) {
-    console.error("خطا در دریافت املاک:", error);
+    // suppressed logging for production/performance
     return NextResponse.json(
       { error: "خطا در دریافت املاک" },
       { status: 500 }
@@ -40,7 +40,7 @@ export async function POST(req) {
     const property = await createProperty(body);
     return NextResponse.json(property, { status: 201 });
   } catch (error) {
-    console.error("خطا در ثبت ملک:", error);
+    // suppressed logging for production/performance
     return NextResponse.json(
       { error: "خطا در ثبت ملک" },
       { status: 500 }

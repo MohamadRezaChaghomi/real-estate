@@ -12,14 +12,10 @@
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #1e293b;
-  border-bottom: 2px solid var(--primary, #3b82f6);
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--accent-gold);
   padding-bottom: 0.75rem;
   display: inline-block;
-}
-
-:global(.dark) .title {
-  color: #f1f5f9;
 }
 
 /* ========== کارت فرم ========== */
