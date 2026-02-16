@@ -1,24 +1,4 @@
-/* ========== متغیرهای اختصاصی ماژول ========== */
-:root {
-  --form-bg: var(--card-bg, #ffffff);
-  --form-border: var(--card-border, #e2e8f0);
-  --form-shadow: var(--shadow-lg, 0 10px 25px -5px rgba(0, 0, 0, 0.1));
-  --input-bg: var(--input-bg, #ffffff);
-  --input-border: var(--input-border, #cbd5e1);
-  --input-focus-border: var(--primary, #3b82f6);
-  --input-focus-ring: rgba(59, 130, 246, 0.2);
-  --label-color: #334155;
-  --placeholder-color: #94a3b8;
-}
-
-.dark {
-  --form-bg: #1e293b;
-  --form-border: #334155;
-  --input-bg: #1e293b;
-  --input-border: #475569;
-  --label-color: #e2e8f0;
-  --placeholder-color: #64748b;
-}
+/* Use variables from global theme (globals.css) */
 
 /* ========== کانتینر اصلی ========== */
 .container {
@@ -38,7 +18,7 @@
   display: inline-block;
 }
 
-.dark .title {
+:global(.dark) .title {
   color: #f1f5f9;
 }
 
@@ -83,10 +63,10 @@
 .textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
-  color: var(--foreground, #0f172a);
+  color: var(--text-primary);
   font-size: 0.875rem;
   transition: all 0.2s ease;
 }
@@ -244,6 +224,30 @@
   border-color: var(--primary, #3b82f6);
   background: rgba(59, 130, 246, 0.03);
   color: var(--primary, #3b82f6);
+}
+
+/* تصاویر پیش‌نمایش */
+.previewWrap {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.previewImage {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+}
+
+.previewFile {
+  padding: 6px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text-primary);
 }
 
 /* ========== سکشن‌ها (برای فرم کامل) ========== */

@@ -1,0 +1,44 @@
+/* Confirm modal styles */
+:root{
+  /* Use global theme variables to stay in sync with dark/light modes */
+  --card-bg: var(--bg-card);
+  --card-border: var(--border-color);
+  --text-primary: var(--text-primary);
+  --text-secondary: var(--text-muted);
+  --primary: var(--primary);
+  --accent: var(--accent-gold);
+}
+.overlay{
+  inset:0;
+  position:fixed;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.45);
+  z-index:1000;
+  direction:rtl;
+}
+.modal{
+  width:90%;
+  max-width:420px;
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:12px;
+  padding:1.75rem;
+  box-shadow:0 20px 35px rgba(0,0,0,0.12);
+  position:relative;
+}
+.header{height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));position:absolute;left:0;right:0;top:0;border-top-left-radius:12px;border-top-right-radius:12px}
+.iconDanger,.iconInfo{width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.iconInfo{background:rgba(59,130,246,0.08);color:#2563eb}
+.iconDanger{background:rgba(239,68,68,0.08);color:#ef4444}
+.content{text-align:center;margin-top:8px}
+.title{font-weight:700;color:var(--text-primary);font-size:1.2rem;margin:0 0 0.5rem}
+.description{color:var(--text-secondary);margin:0 0 1rem;line-height:1.5}
+.footer{display:flex;justify-content:flex-end;gap:0.75rem;margin-top:1rem}
+.cancelButton{background:var(--card-bg);color:var(--text-primary);border:1px solid var(--card-border);padding:0.6rem 1rem;border-radius:8px;cursor:pointer}
+.cancelButton:hover{filter:brightness(0.95)}
+.confirmButton,.confirmDangerButton{padding:0.6rem 1rem;border-radius:8px;border:none;cursor:pointer;font-weight:600;color:#fff}
+.confirmButton{background:linear-gradient(135deg,var(--primary),var(--accent));box-shadow:0 6px 16px rgba(59,130,246,0.12)}
+.confirmDangerButton{background:#ef4444;box-shadow:0 6px 16px rgba(239,68,68,0.12)}
+.title,.description{direction:rtl}

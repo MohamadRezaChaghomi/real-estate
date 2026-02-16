@@ -1,27 +1,27 @@
 /* ========== متغیرهای اختصاصی ماژول ========== */
 :root {
-  --form-customer-bg: var(--card-bg, #ffffff);
-  --form-customer-border: var(--card-border, #e2e8f0);
-  --form-customer-shadow: var(--shadow-lg, 0 10px 25px -5px rgba(0, 0, 0, 0.1));
-  --input-customer-bg: var(--input-bg, #ffffff);
-  --input-customer-border: var(--input-border, #cbd5e1);
-  --input-focus-border: var(--primary, #3b82f6);
+  --form-customer-bg: var(--bg-card);
+  --form-customer-border: var(--border-color);
+  --form-customer-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --input-customer-bg: var(--bg-input);
+  --input-customer-border: var(--border-color);
+  --input-focus-border: var(--info);
   --input-focus-ring: rgba(59, 130, 246, 0.2);
-  --label-color: #334155;
-  --placeholder-color: #94a3b8;
-  --text-primary: #1e293b;
-  --spinner-color: var(--primary, #3b82f6);
+  --label-color: var(--text-secondary);
+  --placeholder-color: var(--text-muted);
+  --text-primary: var(--text-primary);
+  --spinner-color: var(--info);
 }
 
-.dark {
-  --form-customer-bg: #1e293b;
-  --form-customer-border: #334155;
-  --input-customer-bg: #1e293b;
-  --input-customer-border: #475569;
-  --label-color: #e2e8f0;
-  --placeholder-color: #64748b;
-  --text-primary: #f1f5f9;
-  --spinner-color: #60a5fa;
+:global(.dark) {
+  --form-customer-bg: var(--bg-card);
+  --form-customer-border: var(--border-color);
+  --input-customer-bg: var(--bg-input);
+  --input-customer-border: var(--border-color);
+  --label-color: var(--text-secondary);
+  --placeholder-color: var(--text-muted);
+  --text-primary: var(--text-primary);
+  --spinner-color: var(--info);
 }
 
 /* ========== کانتینر اصلی ========== */

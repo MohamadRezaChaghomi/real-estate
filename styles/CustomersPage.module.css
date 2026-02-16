@@ -1,23 +1,23 @@
 /* ========== متغیرهای اختصاصی ماژول ========== */
 :root {
-  --customers-bg: var(--background, #f8fafc);
-  --customers-card-bg: var(--card-bg, #ffffff);
-  --customers-border: var(--card-border, #e2e8f0);
-  --customers-text-primary: #1e293b;
-  --customers-text-secondary: #64748b;
+  --customers-bg: var(--bg-primary);
+  --customers-card-bg: var(--bg-card);
+  --customers-border: var(--border-color);
+  --customers-text-primary: var(--text-primary);
+  --customers-text-secondary: var(--text-secondary);
   --customers-badge-bg: rgba(59, 130, 246, 0.1);
-  --customers-badge-color: var(--primary, #3b82f6);
-  --customers-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  --customers-badge-color: var(--info);
+  --customers-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.dark {
-  --customers-bg: #0f172a;
-  --customers-card-bg: #1e293b;
-  --customers-border: #334155;
-  --customers-text-primary: #f1f5f9;
-  --customers-text-secondary: #94a3b8;
+:global(.dark) {
+  --customers-bg: var(--bg-primary);
+  --customers-card-bg: var(--bg-card);
+  --customers-border: var(--border-color);
+  --customers-text-primary: var(--text-primary);
+  --customers-text-secondary: var(--text-secondary);
   --customers-badge-bg: rgba(96, 165, 250, 0.1);
-  --customers-badge-color: #60a5fa;
+  --customers-badge-color: var(--info);
 }
 
 /* ========== کانتینر اصلی ========== */
@@ -54,7 +54,7 @@
   left: 0;
   width: 50px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary, #3b82f6), transparent);
+  background: linear-gradient(90deg, var(--info), transparent);
   border-radius: 3px;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .badge:hover {
-  background: var(--primary, #3b82f6);
+  background: var(--info);
   color: white;
   transform: translateY(-1px);
 }
@@ -93,8 +93,8 @@
 }
 
 .emptyState:hover {
-  box-shadow: var(--shadow-lg, 0 10px 25px -5px rgba(0, 0, 0, 0.1));
-  border-color: var(--primary, #3b82f6);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: var(--info);
 }
 
 /* ========== گرید کارت‌ها ========== */
@@ -149,20 +149,20 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--primary);
+  background: var(--info);
   color: white;
   padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-md);
+  border-radius: 0.5rem;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.2s ease;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .addButton:hover {
-  background: var(--primary-dark);
+  background: var(--primary);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .addButton:active {
