@@ -15,8 +15,6 @@ import {
   DollarSign,
   Sun,
   Moon,
-  User,
-  LogOut,
 } from "lucide-react";
 import styles from "@/styles/Navbar.module.css";
 
@@ -44,22 +42,15 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        {/* لوگو و دکمه همبرگری */}
+        {/* Direita - Logo e nome do site */}
         <div className={styles.navbarBrand}>
           <Link href="/" className={styles.logo}>
             <Building size={24} />
             <span>مدیریت املاک</span>
           </Link>
-          <button
-            className={styles.menuButton}
-            onClick={toggleMenu}
-            aria-label="منو"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
 
-        {/* لینک‌های ناوبری */}
+        {/* Meio - Menu de navegação */}
         <div className={`${styles.navLinks} ${isMenuOpen ? styles.open : ""}`}>
           {navigation.map((item) => {
             const isActive = pathname === item.href;
@@ -79,7 +70,7 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* بخش سمت راست – تم و پروفایل */}
+        {/* Esquerda - Botão hamburger (mobile) e modo tema */}
         <div className={styles.navActions}>
           {mounted && (
             <button
@@ -90,21 +81,13 @@ export default function Navbar() {
               {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
           )}
-
-          <div className={styles.profileDropdown}>
-            <button className={styles.profileButton}>
-              <div className={styles.avatar}>مد</div>
-              <span className={styles.profileName}>مدیر سیستم</span>
-            </button>
-            <div className={styles.dropdownMenu}>
-              <Link href="/profile" className={styles.dropdownItem}>
-                <User size={16} /> پروفایل
-              </Link>
-              <button className={styles.dropdownItem}>
-                <LogOut size={16} /> خروج
-              </button>
-            </div>
-          </div>
+          <button
+            className={styles.menuButton}
+            onClick={toggleMenu}
+            aria-label="منو"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </div>
     </nav>
