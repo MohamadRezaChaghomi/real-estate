@@ -61,7 +61,7 @@ export default async function PropertyDetail({ params }) {
   return (
     <div className={styles.container}>
       <div className={styles.actionsBar}>
-        <PropertyActions id={property._id} />
+        <PropertyActions id={property._id} property={property} />
       </div>
       {/* گالری تصاویر */}
       {property.images?.length > 0 && (

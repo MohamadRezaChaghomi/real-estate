@@ -293,10 +293,16 @@
   transform: translateY(0);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Modal Info Lines */
+.modalInfoLine {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  text-align: right;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
   }
   to {
     opacity: 1;

@@ -1,4 +1,30 @@
-/* Use variables from global theme (globals.css) */
+/* PropertyEdit Module Styles */
+
+/* ========== متغیرهای اختصاصی ماژول ========== */
+:root {
+  --form-property-bg: var(--bg-card);
+  --form-property-border: var(--border-color);
+  --form-property-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  --input-property-bg: var(--bg-input);
+  --input-property-border: var(--border-color);
+  --input-focus-border: var(--accent-gold);
+  --input-focus-ring: rgba(212, 175, 55, 0.2);
+  --label-color: var(--text-secondary);
+  --placeholder-color: var(--text-muted);
+  --text-primary: var(--text-primary);
+  --spinner-color: var(--accent-gold);
+}
+
+:global(.dark) {
+  --form-property-bg: var(--bg-card);
+  --form-property-border: var(--border-color);
+  --input-property-bg: var(--bg-input);
+  --input-property-border: var(--border-color);
+  --label-color: var(--text-secondary);
+  --placeholder-color: var(--text-muted);
+  --text-primary: var(--text-primary);
+  --spinner-color: var(--accent-gold);
+}
 
 /* ========== کانتینر اصلی ========== */
 .container {
@@ -20,11 +46,11 @@
 
 /* ========== کارت فرم ========== */
 .formCard {
-  background: var(--form-bg);
-  border: 1px solid var(--form-border);
+  background: var(--form-property-bg);
+  border: 1px solid var(--form-property-border);
   border-radius: 1rem;
   padding: 2rem;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--form-property-shadow);
   transition: box-shadow 0.3s ease;
 }
 
@@ -36,7 +62,40 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
+}
+
+/* ========== سکشن‌ها ========== */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--form-property-border);
+}
+
+.section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  position: relative;
+}
+
+.sectionTitle::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-gold), transparent);
+  margin-left: 1rem;
 }
 
 /* ========== فیلد ========== */
@@ -59,12 +118,13 @@
 .textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
+  background: var(--input-property-bg);
+  border: 1px solid var(--input-property-border);
   border-radius: 0.5rem;
   color: var(--text-primary);
   font-size: 0.875rem;
   transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 .input:focus,
@@ -85,67 +145,24 @@
   min-height: 7rem;
 }
 
-/* ========== ردیف دو ستونه ========== */
-.row {
+/* ========== گرید ========== */
+.grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 @media (min-width: 768px) {
-  .row {
+  .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ========== دکمه ثبت/ویرایش ========== */
-.submitButton {
-  width: 100%;
-  padding: 0.875rem 1.5rem;
-  background: var(--accent-gold);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
-}
-
-.submitButton:hover {
-  background: var(--accent-gold-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.submitButton:active {
-  transform: scale(0.98);
-}
-
-/* ========== لودینگ ========== */
-.loadingContainer {
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.spinner {
-  width: 3rem;
-  height: 3rem;
-  border: 4px solid var(--primary, #3b82f6);
-  border-top-color: transparent;
-  border-radius: 9999px;
-  animation: spin 1s linear infinite;
-}
-
-/* ========== چک‌باکس‌ها (برای فرم کامل) ========== */
+/* ========== چک‌باکس‌ها ========== */
 .checkboxGroup {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
 }
 
 .checkboxWrapper {
@@ -158,31 +175,33 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   border-radius: 0.375rem;
   font-size: 0.875rem;
   color: var(--text-primary);
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 .checkboxLabel:hover {
-  background: rgba(59, 130, 246, 0.05);
+  color: var(--accent-gold);
 }
 
 .checkbox {
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 0.25rem;
-  border: 1px solid var(--input-border);
-  accent-color: var(--primary, #3b82f6);
+  border: 1px solid var(--input-property-border);
+  accent-color: var(--accent-gold);
   transition: all 0.2s ease;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .checkbox:checked {
-  background-color: var(--primary, #3b82f6);
-  border-color: var(--primary, #3b82f6);
+  background-color: var(--accent-gold);
+  border-color: var(--accent-gold);
 }
 
 /* ========== آپلود فایل ========== */
@@ -207,76 +226,116 @@
   gap: 0.5rem;
   width: 100%;
   padding: 2rem 1rem;
-  background: var(--input-bg);
-  border: 2px dashed var(--input-border);
+  background: var(--input-property-bg);
+  border: 2px dashed var(--input-property-border);
   border-radius: 0.75rem;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: var(--placeholder-color);
   cursor: pointer;
   transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 .fileLabel:hover {
-  border-color: var(--primary, #3b82f6);
-  background: rgba(59, 130, 246, 0.03);
-  color: var(--primary, #3b82f6);
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.05);
+  color: var(--accent-gold);
 }
 
-/* تصاویر پیش‌نمایش */
+.fileLabel:active {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* ========== تصاویر پیش‌نمایش ========== */
 .previewWrap {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.previewContainer {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--input-property-border);
+  background: var(--input-property-bg);
+  transition: all 0.2s ease;
+}
+
+.previewContainer:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
 }
 
 .previewImage {
-  width: 100px;
-  height: 70px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid var(--input-border);
 }
 
 .previewFile {
-  padding: 6px;
-  border: 1px solid var(--input-border);
-  border-radius: 6px;
-  background: var(--input-bg);
-  color: var(--text-primary);
-}
-
-/* ========== سکشن‌ها (برای فرم کامل) ========== */
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--form-border);
-}
-
-.section:last-of-type {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.sectionTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
-  position: relative;
+  justify-content: center;
+  padding: 0.75rem;
+  border: 1px solid var(--input-property-border);
+  border-radius: 0.75rem;
+  background: var(--input-property-bg);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  text-align: center;
+  word-break: break-all;
+  transition: all 0.2s ease;
 }
 
-.sectionTitle::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--primary, #3b82f6), transparent);
-  margin-left: 1rem;
+.previewFile:hover {
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* ========== دکمه ثبت ========== */
+.submitButton {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: var(--accent-gold);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover {
+  background: var(--accent-gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+/* ========== لودینگ ========== */
+.loadingContainer {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--spinner-color);
+  border-top-color: transparent;
+  border-radius: 9999px;
+  animation: spin 1s linear infinite;
 }
 
 /* ========== انیمیشن‌ها ========== */

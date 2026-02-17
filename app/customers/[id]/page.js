@@ -31,7 +31,7 @@ export default async function CustomerDetail({ params }) {
   return (
     <div className={styles.container}>
       <div className={styles.actionsBar}>
-        <CustomerActions id={customer._id} />
+        <CustomerActions id={customer._id} customer={customer} />
       </div>
       <div className={styles.card}>
         <div className={styles.header}>

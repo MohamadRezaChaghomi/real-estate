@@ -66,13 +66,14 @@ export default function EditProperty({ params }) {
       <h1 className={styles.title}>ویرایش ملک</h1>
       <div className={styles.formCard}>
         <form onSubmit={handleSubmit} className={styles.form}>
+          {/* اطلاعات اولیه */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>اطلاعات اولیه</h3>
-            <div className={styles.row}>
-              {/* عنوان حذف شد - ملک‌ها اسم ندارند */}
+            <div className={styles.grid}>
               <div className={styles.field}>
                 <label className={styles.label}>نوع ملک</label>
                 <select name="propertyType" className={styles.select} value={form.propertyType || ""} onChange={handleChange}>
+                  <option value="">انتخاب کنید</option>
                   <option value="apartment">آپارتمان</option>
                   <option value="villa">ویلایی</option>
                   <option value="commercial">تجاری</option>
@@ -80,20 +81,9 @@ export default function EditProperty({ params }) {
                 </select>
               </div>
               <div className={styles.field}>
-                <label className={styles.label}>متریال کابینت</label>
-                <select name="cabinetMaterial" className={styles.select} value={form.cabinetMaterial || ""} onChange={handleChange}>
-                  <option value="">انتخاب کنید</option>
-                  <option value="mdf">ام‌دی‌اف</option>
-                  <option value="highGloss">های‌گلاس</option>
-                  <option value="acrylic">اکریلیک</option>
-                  <option value="wood">چوب</option>
-                  <option value="laminate">لمینت</option>
-                  <option value="other">سایر</option>
-                </select>
-              </div>
-              <div className={styles.field}>
                 <label className={styles.label}>نوع فروش</label>
                 <select name="saleType" className={styles.select} value={form.saleType || ""} onChange={handleChange}>
+                  <option value="">انتخاب کنید</option>
                   <option value="sale">فروش</option>
                   <option value="rent">رهن و اجاره</option>
                 </select>
@@ -101,43 +91,145 @@ export default function EditProperty({ params }) {
             </div>
           </section>
 
+          {/* مشخصات فیزیکی */}
           <section className={styles.section}>
-            <h3 className={styles.sectionTitle}>مشخصات</h3>
+            <h3 className={styles.sectionTitle}>مشخصات فیزیکی</h3>
             <div className={styles.grid}>
-              <input name="area" placeholder="متراژ" className={styles.input} value={form.area || ""} onChange={handleChange} />
-              <input name="rooms" placeholder="تعداد خواب" className={styles.input} value={form.rooms || ""} onChange={handleChange} />
-              <input name="floor" placeholder="طبقه" className={styles.input} value={form.floor || ""} onChange={handleChange} />
-              <input name="unitsCount" placeholder="تعداد واحد" className={styles.input} value={form.unitsCount || ""} onChange={handleChange} />
-              <select name="direction" className={styles.select} value={form.direction || ""} onChange={handleChange}>
-                <option value="">جهت ساختمان</option>
-                <option value="north">شمالی</option>
-                <option value="south">جنوبی</option>
-                <option value="east">شرقی</option>
-                <option value="west">غربی</option>
-              </select>
-              <select name="deedType" className={styles.select} value={form.deedType || ""} onChange={handleChange}>
-                <option value="">نوع سند</option>
-                <option value="full">شش دانگ</option>
-                <option value="promissory">قولنامه‌ای</option>
-              </select>
+              <div className={styles.field}>
+                <label className={styles.label}>متراژ (متر مربع)</label>
+                <input
+                  name="area"
+                  type="number"
+                  placeholder="0"
+                  className={styles.input}
+                  value={form.area || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>تعداد خواب</label>
+                <input
+                  name="rooms"
+                  type="number"
+                  placeholder="0"
+                  className={styles.input}
+                  value={form.rooms || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>طبقه</label>
+                <input
+                  name="floor"
+                  type="number"
+                  placeholder="0"
+                  className={styles.input}
+                  value={form.floor || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>تعداد واحد</label>
+                <input
+                  name="unitsCount"
+                  type="number"
+                  placeholder="0"
+                  className={styles.input}
+                  value={form.unitsCount || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>جهت ساختمان</label>
+                <select name="direction" className={styles.select} value={form.direction || ""} onChange={handleChange}>
+                  <option value="">انتخاب کنید</option>
+                  <option value="north">شمالی</option>
+                  <option value="south">جنوبی</option>
+                  <option value="east">شرقی</option>
+                  <option value="west">غربی</option>
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>نوع سند</label>
+                <select name="deedType" className={styles.select} value={form.deedType || ""} onChange={handleChange}>
+                  <option value="">انتخاب کنید</option>
+                  <option value="full">شش دانگ</option>
+                  <option value="promissory">قولنامه‌ای</option>
+                </select>
+              </div>
             </div>
           </section>
 
+          {/* اطلاعات مالی */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>اطلاعات مالی</h3>
             {form.saleType === "sale" ? (
-              <input name="price" placeholder="قیمت" className={styles.input} value={form.price || ""} onChange={handleChange} />
+              <div className={styles.field}>
+                <label className={styles.label}>قیمت فروش (تومان)</label>
+                <input
+                  name="price"
+                  type="number"
+                  placeholder="قیمت"
+                  className={styles.input}
+                  value={form.price || ""}
+                  onChange={handleChange}
+                />
+              </div>
             ) : (
-              <div className={styles.row}>
-                <input name="deposit" placeholder="رهن" className={styles.input} value={form.deposit || ""} onChange={handleChange} />
-                <input name="rentPrice" placeholder="اجاره ماهانه" className={styles.input} value={form.rentPrice || ""} onChange={handleChange} />
+              <div className={styles.grid}>
+                <div className={styles.field}>
+                  <label className={styles.label}>رهن (تومان)</label>
+                  <input
+                    name="deposit"
+                    type="number"
+                    placeholder="رهن"
+                    className={styles.input}
+                    value={form.deposit || ""}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label}>اجاره ماهانه (تومان)</label>
+                  <input
+                    name="rentPrice"
+                    type="number"
+                    placeholder="اجاره ماهانه"
+                    className={styles.input}
+                    value={form.rentPrice || ""}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
             )}
-            <label className={styles.checkboxLabel}><input type="checkbox" name="exchange" checked={!!form.exchange} onChange={handleChange} /> معاوضه</label>
+            <div className={styles.checkboxWrapper}>
+              <label className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  name="exchange"
+                  checked={!!form.exchange}
+                  onChange={handleChange}
+                  className={styles.checkbox}
+                />
+                قابل معاوضه
+              </label>
+            </div>
           </section>
 
+          {/* ویژگی‌ها و امکانات */}
           <section className={styles.section}>
-            <h3 className={styles.sectionTitle}>امکانات</h3>
+            <h3 className={styles.sectionTitle}>ویژگی‌ها و امکانات</h3>
+            <div className={styles.field}>
+              <label className={styles.label}>متریال کابینت</label>
+              <select name="cabinetMaterial" className={styles.select} value={form.cabinetMaterial || ""} onChange={handleChange}>
+                <option value="">انتخاب کنید</option>
+                <option value="mdf">ام‌دی‌اف</option>
+                <option value="highGloss">های‌گلاس</option>
+                <option value="acrylic">اکریلیک</option>
+                <option value="wood">چوب</option>
+                <option value="laminate">لمینت</option>
+                <option value="other">سایر</option>
+              </select>
+            </div>
             <div className={styles.checkboxGroup}>
               {[
                 { key: "water", label: "آب" },
@@ -157,33 +249,75 @@ export default function EditProperty({ params }) {
                 { key: "parking", label: "پارکینگ" },
               ].map((item) => (
                 <label key={item.key} className={styles.checkboxLabel}>
-                  <input type="checkbox" name={item.key} checked={!!form[item.key]} onChange={handleChange} /> {item.label}
+                  <input
+                    type="checkbox"
+                    name={item.key}
+                    checked={!!form[item.key]}
+                    onChange={handleChange}
+                    className={styles.checkbox}
+                  />
+                  {item.label}
                 </label>
               ))}
             </div>
           </section>
 
+          {/* آدرس و توضیحات */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>آدرس و توضیحات</h3>
-            <input name="address" placeholder="آدرس" className={styles.input} value={form.address || ""} onChange={handleChange} />
-            <textarea name="description" placeholder="توضیحات" className={styles.textarea} value={form.description || ""} onChange={handleChange} rows={4} />
+            <div className={styles.field}>
+              <label className={styles.label}>آدرس</label>
+              <input
+                name="address"
+                type="text"
+                placeholder="آدرس کامل ملک"
+                className={styles.input}
+                value={form.address || ""}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>توضیحات اضافی</label>
+              <textarea
+                name="description"
+                placeholder="توضیحات در مورد ملک"
+                className={styles.textarea}
+                value={form.description || ""}
+                onChange={handleChange}
+                rows={4}
+              />
+            </div>
           </section>
 
+          {/* تصاویر */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>تصاویر</h3>
             <div className={styles.fileUpload}>
-              <input type="file" multiple accept="image/*" onChange={(e)=> setImages(Array.from(e.target.files))} className={styles.fileInput} id="file-upload-edit" />
-              <label htmlFor="file-upload-edit" className={styles.fileLabel}>آپلود تصاویر جدید (در صورت نیاز)</label>
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={(e) => setImages(Array.from(e.target.files))}
+                className={styles.fileInput}
+                id="file-upload-edit"
+              />
+              <label htmlFor="file-upload-edit" className={styles.fileLabel}>
+                + آپلود تصاویر جدید
+              </label>
             </div>
-            <div className={styles.previewWrap}>
-              {(images || []).map((img, i) => (
-                typeof img === "string" ? (
-                  <img key={i} src={img} className={styles.previewImage} />
-                ) : (
-                  <span key={i} className={styles.previewFile}>{img.name}</span>
-                )
-              ))}
-            </div>
+            {(images || []).length > 0 && (
+              <div className={styles.previewWrap}>
+                {(images || []).map((img, i) =>
+                  typeof img === "string" ? (
+                    <div key={i} className={styles.previewContainer}>
+                      <img src={img} className={styles.previewImage} alt={`preview-${i}`} />
+                    </div>
+                  ) : (
+                    <div key={i} className={styles.previewFile}>{img.name}</div>
+                  )
+                )}
+              </div>
+            )}
           </section>
 
           <button type="submit" className={styles.submitButton}>

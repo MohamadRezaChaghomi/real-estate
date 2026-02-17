@@ -20,45 +20,69 @@
 /* نوار اکشن (ویرایش/حذف) */
 .actionsBar {
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
+/* Action Buttons */
 .editButtonInline,
 .deleteButtonInline {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
   border-radius: 50px;
   font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: 1px solid transparent;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-decoration: none;
 }
 
 .editButtonInline {
-  background: var(--info);
-  color: white;
+  background: var(--accent-gold);
+  color: #1a1a1a;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 
 .editButtonInline:hover {
-  background: #1d4ed8;
+  background: var(--accent-gold-dark);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px -5px var(--info);
+}
+
+.editButtonInline:active {
+  transform: translateY(0);
 }
 
 .deleteButtonInline {
-  background: var(--danger);
-  color: white;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: 1px solid var(--danger);
 }
 
 .deleteButtonInline:hover {
-  background: #b91c1c;
+  background: var(--danger);
+  color: white;
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px -5px var(--danger);
+}
+
+.deleteButtonInline:active {
+  transform: translateY(0);
+}
+
+/* Modal Info Lines */
+.modalInfoLine {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  text-align: right;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 /* گالری تصاویر */
