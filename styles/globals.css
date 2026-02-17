@@ -30,25 +30,25 @@
 }
 
 .dark {
-  /* Dark theme */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
-  --bg-navbar: rgba(30, 41, 59, 0.8);
-  --bg-input: #0f172a;
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --border-color: #334155;
-  --shadow-color: rgba(0, 0, 0, 0.3);
-  --shadow-hover: rgba(0, 0, 0, 0.4);
-  --accent-gold: #fbbf24;
-  --accent-gold-light: #fde68a;
-  --accent-gold-dark: #d97706;
-  --success: #059669;
-  --warning: #d97706;
-  --danger: #dc2626;
-  --info: #2563eb;
+  /* Dark theme - using !important to override Tailwind's defaults */
+  --bg-primary: #0f172a !important;
+  --bg-secondary: #1e293b !important;
+  --bg-card: #1e293b !important;
+  --bg-navbar: rgba(30, 41, 59, 0.8) !important;
+  --bg-input: #0f172a !important;
+  --text-primary: #f1f5f9 !important;
+  --text-secondary: #cbd5e1 !important;
+  --text-muted: #94a3b8 !important;
+  --border-color: #334155 !important;
+  --shadow-color: rgba(0, 0, 0, 0.3) !important;
+  --shadow-hover: rgba(0, 0, 0, 0.4) !important;
+  --accent-gold: #fbbf24 !important;
+  --accent-gold-light: #fde68a !important;
+  --accent-gold-dark: #d97706 !important;
+  --success: #059669 !important;
+  --warning: #d97706 !important;
+  --danger: #dc2626 !important;
+  --info: #2563eb !important;
 
   /* Backwards-compatible aliases for dark theme */
   --card-bg: var(--bg-card);
@@ -150,7 +150,7 @@ textarea::placeholder {
   color: #1a1a1a !important;
 }
 
-:global(.dark) [style*="accent-gold"],
-:global(.dark) [style*="#fbbf24"] {
+.dark [style*="accent-gold"],
+.dark [style*="#fbbf24"] {
   color: #0a0a0a !important;
 }

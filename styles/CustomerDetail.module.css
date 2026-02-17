@@ -1,16 +1,16 @@
 .container {
   max-width: 64rem;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 2rem 1.5rem;
   animation: fadeIn 0.4s ease-out;
 }
 
 .card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
   padding: 2rem;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 6px var(--shadow-color);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -22,8 +22,8 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
+  height: 3px;
+  background: var(--accent-gold);
   transform: scaleX(0);
   transition: transform 0.3s ease;
   transform-origin: right;
@@ -36,7 +36,8 @@
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 30px var(--shadow-color);
+  border-color: var(--accent-gold);
 }
 
 .header {
@@ -45,21 +46,21 @@
   gap: 1.5rem;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .avatarLarge {
   width: 5rem;
   height: 5rem;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, var(--accent-gold), #d4af37);
   border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #1a1a1a;
   font-size: 2rem;
   font-weight: 700;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 12px var(--shadow-color);
   transition: transform 0.3s ease;
 }
 
@@ -85,19 +86,16 @@
   font-family: monospace;
   direction: ltr;
   display: inline-block;
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--accent-gold);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-}
-
-:global(.dark) .customerNumber {
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .section {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .section:last-of-type {
@@ -122,7 +120,7 @@
   left: 0;
   width: 50px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary), transparent);
+  background: var(--accent-gold);
   border-radius: 3px;
 }
 
@@ -142,15 +140,15 @@
   display: flex;
   align-items: baseline;
   padding: 0.75rem 1rem;
-  background: rgba(0, 0, 0, 0.01);
-  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  border-radius: 0.75rem;
   transition: all 0.2s ease;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
 }
 
 .infoItem:hover {
-  background: rgba(var(--primary-rgb), 0.03);
-  border-color: var(--primary);
+  background: rgba(212, 175, 55, 0.05);
+  border-color: var(--accent-gold);
   transform: translateY(-2px);
 }
 
@@ -172,10 +170,10 @@
   font-size: 0.875rem;
   line-height: 1.7;
   color: var(--text-primary);
-  background: rgba(0, 0, 0, 0.01);
+  background: var(--bg-primary);
   padding: 1rem 1.25rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--card-border);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
   white-space: pre-wrap;
 }
 
@@ -190,24 +188,24 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem 1rem;
-  background: rgba(0, 0, 0, 0.01);
-  border-radius: var(--radius-md);
-  border-right: 4px solid var(--primary);
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border-radius: 0.75rem;
+  border-right: 3px solid var(--accent-gold);
   transition: all 0.2s ease;
 }
 
 .timelineItem:hover {
-  background: rgba(var(--primary-rgb), 0.03);
+  background: rgba(212, 175, 55, 0.05);
   transform: translateX(-4px);
 }
 
 .timelineDate {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-primary);
-  background: rgba(var(--primary-rgb), 0.1);
-  padding: 0.25rem 0.75rem;
+  color: #1a1a1a;
+  background: var(--accent-gold);
+  padding: 0.35rem 0.75rem;
   border-radius: 9999px;
   direction: ltr;
   font-family: monospace;
@@ -216,25 +214,83 @@
 .timelineLabel {
   font-size: 0.875rem;
   color: var(--text-secondary);
+  flex: 1;
 }
 
 .notFound {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
   padding: 3rem 1.5rem;
   text-align: center;
-  color: #ef4444;
+  color: var(--danger);
   font-size: 1.125rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 6px var(--shadow-color);
   max-width: 32rem;
   margin: 2rem auto;
   animation: fadeIn 0.4s ease-out;
 }
 
 .notFound:hover {
-  border-color: #ef4444;
+  border-color: var(--danger);
   box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.2);
+}
+
+.actionsBar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Action Buttons */
+.editButtonInline,
+.deleteButtonInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.editButtonInline {
+  background: var(--accent-gold);
+  color: #1a1a1a;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.editButtonInline:hover {
+  background: var(--accent-gold-dark);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+  transform: translateY(-2px);
+}
+
+.editButtonInline:active {
+  transform: translateY(0);
+}
+
+.deleteButtonInline {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.deleteButtonInline:hover {
+  background: var(--danger);
+  color: white;
+  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.4);
+  transform: translateY(-2px);
+}
+
+.deleteButtonInline:active {
+  transform: translateY(0);
 }
 
 @keyframes fadeIn {
@@ -246,58 +302,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Action Buttons */
-.editButtonInline,
-.deleteButtonInline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-  text-decoration: none;
-}
-
-.editButtonInline {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: white;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
-
-.editButtonInline:hover {
-  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
-  transform: translateY(-2px);
-}
-
-.editButtonInline:active {
-  transform: translateY(0);
-}
-
-.deleteButtonInline {
-  background: #ef4444;
-  color: white;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-}
-
-.deleteButtonInline:hover {
-  background: #dc2626;
-  box-shadow: 0 8px 16px rgba(239, 68, 68, 0.4);
-  transform: translateY(-2px);
-}
-
-.deleteButtonInline:active {
-  transform: translateY(0);
-}
-
-.actionsBar {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
 }

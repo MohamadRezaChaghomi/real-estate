@@ -17,5 +17,5 @@ export default function SearchHeader({ paramName = "q", placeholder }) {
   }
 
   const value = searchParams?.get(paramName) || "";
-  return <SearchBox value={value} onSearch={handleSearch} placeholder={placeholder} />;
+  return <div style={{ marginBottom: "1.5rem" }}><SearchBox value={value} onSearch={handleSearch} placeholder={placeholder} /></div>;
 }

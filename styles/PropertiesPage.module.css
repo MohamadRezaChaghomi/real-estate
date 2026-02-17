@@ -2,6 +2,7 @@
 
 .container {
   padding: 1rem 0;
+  color: var(--text-primary);
 }
 
 .header {
@@ -29,11 +30,15 @@
 
 .badge {
   background: var(--accent-gold);
-  color: #1e293b;
-  padding: 0.25rem 1rem;
+  color: #1a1a1a;
+  padding: 0.35rem 1rem;
   border-radius: 50px;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.dark .badge {
+  color: #1a1a1a;
 }
 
 .addButton {
@@ -42,11 +47,14 @@
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   background: var(--accent-gold);
-  color: #1e293b;
+  color: #1a1a1a;
   border-radius: 50px;
   font-weight: 600;
   transition: all 0.3s ease;
   border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
 }
 
 .addButton:hover {
@@ -71,6 +79,7 @@
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {

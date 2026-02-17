@@ -102,7 +102,7 @@
 .submitButton {
   width: 100%;
   padding: 0.875rem 1.5rem;
-  background: var(--primary, #3b82f6);
+  background: var(--accent-gold);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -115,7 +115,7 @@
 }
 
 .submitButton:hover {
-  background: var(--primary-dark, #2563eb);
+  background: var(--accent-gold-dark);
   transform: translateY(-2px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

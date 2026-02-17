@@ -37,7 +37,7 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
   color: var(--text-primary);
-  border-bottom: 2px solid var(--primary, #3b82f6);
+  border-bottom: 2px solid var(--accent-gold);
   padding-bottom: 0.75rem;
   display: inline-block;
 }
@@ -92,7 +92,7 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, var(--primary, #3b82f6), transparent);
+  background: linear-gradient(90deg, var(--accent-gold), transparent);
   margin-left: 1rem;
 }
 
@@ -159,7 +159,7 @@
 .submitButton {
   width: 100%;
   padding: 0.875rem 1.5rem;
-  background: var(--primary, #3b82f6);
+  background: var(--accent-gold);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -172,7 +172,7 @@
 }
 
 .submitButton:hover {
-  background: var(--primary-dark, #2563eb);
+  background: var(--accent-gold-dark);
   transform: translateY(-2px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

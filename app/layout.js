@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl" className={vazir.variable} suppressHydrationWarning>
       <body className={styles.body}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="theme">
           <Navbar />
           <main className={styles.main}>{children}</main>
           <Toaster position="top-left" />

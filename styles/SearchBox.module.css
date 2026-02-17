@@ -1,13 +1,15 @@
 /* styles/SearchBox.module.css */
 
-.searchContainer {
+.searchWrap {
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.searchInput {
+.input {
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
   background: var(--bg-input);
   border: 1px solid var(--border-color);
   border-radius: 50px;
@@ -17,26 +19,28 @@
   font-family: inherit;
 }
 
-.searchInput:focus {
+.input:focus {
   outline: none;
   border-color: var(--accent-gold);
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
-.searchInput::placeholder {
+.input::placeholder {
   color: var(--text-muted);
 }
 
-.searchIcon {
+.icon {
   position: absolute;
-  left: 1rem;
+  right: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
   pointer-events: none;
   transition: color 0.3s ease;
-}
-
-.searchInput:focus + .searchIcon {
-  color: var(--accent-gold);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }

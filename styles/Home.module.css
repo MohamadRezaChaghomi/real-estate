@@ -79,24 +79,24 @@
   border: none;
   font-size: 0.95rem;
   cursor: pointer;
+  color: var(--text-primary);
 }
 
 .btnExport {
   background: var(--bg-secondary);
-  color: var(--text-primary);
   border: 1px solid var(--border-color);
 }
 
 .btnExport:hover {
-  background: var(--accent-gold-light);
+  background: var(--accent-gold);
   border-color: var(--accent-gold);
-  color: #1e293b; /* برای کنتراست بهتر در دارک مود، متن تیره */
+  color: #1a1a1a;
   transform: translateY(-2px);
 }
 
 .btnPrimary {
   background: var(--accent-gold);
-  color: #1e293b; /* تیره برای خوانایی روی طلایی */
+  color: #1a1a1a;
 }
 
 .btnPrimary:hover {

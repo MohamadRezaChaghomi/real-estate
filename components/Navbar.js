@@ -12,6 +12,7 @@ import {
   Users,
   BarChart3,
   Calendar,
+  DollarSign,
   Sun,
   Moon,
   User,
@@ -23,6 +24,7 @@ const navigation = [
   { name: "داشبورد", href: "/", icon: Home },
   { name: "املاک", href: "/properties", icon: Building },
   { name: "خریداران", href: "/customers", icon: Users },
+  { name: "تراکنش‌ها", href: "/transactions", icon: DollarSign },
   { name: "گزارشات", href: "/reports", icon: BarChart3 },
   { name: "تقویم", href: "/calendar", icon: Calendar },
 ];

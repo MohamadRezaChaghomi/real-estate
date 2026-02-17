@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import styles from "@/styles/PropertyForm.module.css";
 
 export default function NewPropertyPage() {
   const router = useRouter();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(null);
   const [form, setForm] = useState({
     propertyType: "apartment",
     saleType: "sale",
@@ -58,7 +60,7 @@ export default function NewPropertyPage() {
     e.preventDefault();
 
     let imageUrls = [];
-    if (images.length > 0) {
+    if (images && images.length > 0) {
       const formData = new FormData();
       for (let img of images) formData.append("images", img);
       const uploadRes = await fetch("/api/upload", {
@@ -90,6 +92,11 @@ export default function NewPropertyPage() {
 
   return (
     <div className={styles.container}>
+      <div style={{ marginBottom: "1.5rem" }}>
+        <Link href="/properties" className={styles.backButton} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--text-secondary)" }}>
+          <ArrowLeft size={20} /> بازگشت
+        </Link>
+      </div>
       <h1 className={styles.title}>ثبت ملک جدید</h1>
       <div className={styles.formCard}>
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -378,6 +385,57 @@ export default function NewPropertyPage() {
               <label htmlFor="file-upload" className={styles.fileLabel}>
                 <span>برای آپلود کلیک کنید یا فایل را بکشید</span>
               </label>
+              {images && images.length > 0 && (
+                <div style={{ marginTop: "1rem", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: "0.75rem" }}>
+                  {Array.from(images).map((file, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: "relative",
+                        paddingBottom: "100%",
+                        background: "var(--bg-secondary)",
+                        borderRadius: "0.5rem",
+                        overflow: "hidden",
+                        border: "1px solid var(--border-color)",
+                      }}
+                    >
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`preview-${idx}`}
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <div
+                        style={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          background: "rgba(0, 0, 0, 0.5)",
+                          color: "white",
+                          padding: "0.25rem",
+                          fontSize: "0.75rem",
+                          textAlign: "center",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {file.name.length > 15 ? file.name.substring(0, 12) + "..." : file.name}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div style={{ marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                {images && images.length > 0 ? `${images.length} فایل انتخاب شد` : "هیچ فایلی انتخاب نشده"}
+              </div>
             </div>
           </section>
 
