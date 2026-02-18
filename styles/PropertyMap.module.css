@@ -32,6 +32,65 @@
   font-size: 1rem;
 }
 
+/* MapSelector specific styles (inputs & buttons) */
+.mapSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mapSelector .input {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0. ninerem;
+  transition: all 0.15s ease;
+}
+
+.mapSelector .input:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 3px var(--input-focus-ring);
+  outline: none;
+}
+
+.mapSelector .submitButton {
+  padding: 0.6rem 1rem;
+  background: var(--accent-gold);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mapSelector .submitButton:hover {
+  background: var(--accent-gold-dark);
+  transform: translateY(-2px);
+}
+
+.mapSelector .submitButton:active { transform: scale(0.98); }
+
+.mapSelector .searchResults {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  max-height: 180px;
+  overflow: auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.mapSelector .searchResult {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.mapSelector .searchResult:hover { background: rgba(59,130,246,0.03); }
+
 /* تنظیمات Leaflet برای دارک مود */
 :global(.dark) .leaflet-tile {
   filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg);
