@@ -24,7 +24,7 @@ export default function ImageSlider({ images = [], alt = "تصویر ملک" }) 
   return (
     <div className={styles.slider}>
       <div className={styles.view}>
-        <button className={styles.nav} onClick={prev} aria-label="قبلی">
+        <button className={styles.nav} onClick={prev} aria-label="قبلی" style={{ background: 'var(--bg-card)', color: 'var(--text-primary)' }}>
           <ChevronLeft size={20} />
         </button>
 
@@ -36,7 +36,7 @@ export default function ImageSlider({ images = [], alt = "تصویر ملک" }) 
           role="button"
         />
 
-        <button className={styles.nav} onClick={next} aria-label="بعدی">
+        <button className={styles.nav} onClick={next} aria-label="بعدی" style={{ background: 'var(--bg-card)', color: 'var(--text-primary)' }}>
           <ChevronRight size={20} />
         </button>
 
