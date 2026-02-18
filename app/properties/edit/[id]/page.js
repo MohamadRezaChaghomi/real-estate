@@ -4,6 +4,9 @@ import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import styles from "@/styles/PropertyEdit.module.css";
+import dynamic from "next/dynamic";
+
+const MapSelector = dynamic(() => import("@/components/MapSelector"), { ssr: false });
 
 export default function EditProperty({ params }) {
   const { id } = use(params);
@@ -303,13 +306,13 @@ export default function EditProperty({ params }) {
             <h3 className={styles.sectionTitle}>آدرس و توضیحات</h3>
             <div className={styles.field}>
               <label className={styles.label}>آدرس</label>
-              <input
-                name="address"
-                type="text"
-                placeholder="آدرس کامل ملک"
-                className={styles.input}
-                value={form.address || ""}
-                onChange={handleChange}
+              <MapSelector
+                latitude={form.latitude}
+                longitude={form.longitude}
+                address={form.address}
+                onChange={({ address, latitude, longitude }) =>
+                  setForm({ ...form, address, latitude, longitude })
+                }
               />
             </div>
             <div className={styles.field}>

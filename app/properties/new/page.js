@@ -6,6 +6,9 @@ import toast from "react-hot-toast";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import styles from "@/styles/PropertyForm.module.css";
+import dynamic from "next/dynamic";
+
+const MapSelector = dynamic(() => import("@/components/MapSelector"), { ssr: false });
 
 export default function NewPropertyPage() {
   const router = useRouter();
@@ -384,13 +387,16 @@ export default function NewPropertyPage() {
           {/* آدرس و توضیحات */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>آدرس و توضیحات</h3>
-            <input
-              name="address"
-              placeholder="آدرس کامل"
-              className={styles.input}
-              value={form.address}
-              onChange={handleChange}
-            />
+                  <div style={{ marginBottom: "0.75rem" }}>
+                    <MapSelector
+                      latitude={form.latitude}
+                      longitude={form.longitude}
+                      address={form.address}
+                      onChange={({ address, latitude, longitude }) =>
+                        setForm({ ...form, address, latitude, longitude })
+                      }
+                    />
+                  </div>
             <textarea
               name="description"
               placeholder="توضیحات"
