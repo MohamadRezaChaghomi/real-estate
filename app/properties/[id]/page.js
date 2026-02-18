@@ -1,5 +1,6 @@
 import { getProperty } from "@/controllers/propertyController";
 import PropertyMap from "@/components/PropertyMap";
+import ImageSlider from "@/components/ImageSlider";
 import styles from "@/styles/PropertyDetail.module.css";
 import PropertyActions from "@/components/PropertyActions";
 
@@ -63,12 +64,10 @@ export default async function PropertyDetail({ params }) {
       <div className={styles.actionsBar}>
         <PropertyActions id={property._id} property={property} />
       </div>
-      {/* گالری تصاویر */}
+      {/* گالری تصاویر (اسلایدر) */}
       {property.images?.length > 0 && (
-        <div className={styles.gallery}>
-          {property.images.map((img, i) => (
-            <img key={i} src={img} alt="" className={styles.galleryImage} />
-          ))}
+        <div style={{ marginBottom: "1.5rem" }}>
+          <ImageSlider images={property.images} alt={property.ownerName || "تصویر ملک"} />
         </div>
       )}
 

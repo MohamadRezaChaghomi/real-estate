@@ -22,10 +22,18 @@ export default function PropertyCard({ item }) {
       <div className={styles.categoryBadge}>{item.type || "نامشخص"}</div>
 
       <div className={styles.header}>
-        <div className={styles.avatar}>{(item.ownerName && item.ownerName.charAt(0)) || "م"}</div>
-        <div className={styles.info}>
-          <h3 className={styles.title}>{item.ownerName || "بدون نام مالک"}</h3>
-          <p className={styles.ownerPhone} dir="ltr">{item.ownerPhone || "-"}</p>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div className={styles.imageWrap}>
+            {item.images && item.images.length > 0 ? (
+              <img src={item.images[0]} alt={item.ownerName || "ملک"} className={styles.cardImage} />
+            ) : (
+              <div className={styles.avatar}>{(item.ownerName && item.ownerName.charAt(0)) || "م"}</div>
+            )}
+          </div>
+          <div className={styles.info}>
+            <h3 className={styles.title}>{item.ownerName || "بدون نام مالک"}</h3>
+            <p className={styles.ownerPhone} dir="ltr">{item.ownerPhone || "-"}</p>
+          </div>
         </div>
       </div>
 
