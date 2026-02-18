@@ -25,7 +25,7 @@ export default async function CustomersPage({ searchParams }) {
           <span className={styles.badge}>{customersArray.length} خریدار</span>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <Link href="/api/customers/export" className={styles.addButton}>
+          <Link href="/api/customers/export" className={styles.exportButton}>
             خروجی اکسل
           </Link>
           <Link href="/customers/new" className={styles.addButton}>

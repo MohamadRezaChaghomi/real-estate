@@ -27,7 +27,7 @@ export default async function PropertiesPage({ searchParams }) {
           <span className={styles.badge}>{propertiesArray.length} ملک</span>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <Link href="/api/properties/export" className={styles.addButton}>
+          <Link href="/api/properties/export" className={styles.exportButton}>
             خروجی اکسل
           </Link>
           <Link href="/properties/new" className={styles.addButton}>

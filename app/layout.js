@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
+import ExportOnUnload from "@/components/ExportOnUnload";
 import { Vazirmatn } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "next-themes";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl" className={vazir.variable} suppressHydrationWarning>
       <body className={styles.body}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="theme">
+          <ExportOnUnload />
           <Navbar />
           <main className={styles.main}>{children}</main>
           <Toaster position="top-left" />

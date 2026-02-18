@@ -2,8 +2,10 @@ import { connectDB } from "@/lib/mongodb";
 import Property from "@/models/Property";
 import ExcelJS from "exceljs";
 import { NextResponse } from "next/server";
+import fs from "fs/promises";
+import path from "path";
 
-export async function GET() {
+export async function POST() {
   try {
     await connectDB();
     const properties = await Property.find({ deletedAt: null }).lean();
@@ -11,7 +13,6 @@ export async function GET() {
     const wb = new ExcelJS.Workbook();
     const ws = wb.addWorksheet("Properties");
 
-    // define columns with headers and keys
     ws.columns = [
       { header: "_id", key: "_id", width: 24 },
       { header: "نوع ملک", key: "propertyType", width: 16 },
@@ -26,28 +27,21 @@ export async function GET() {
       { header: "تعداد واحد", key: "unitsCount", width: 10 },
       { header: "جهت", key: "direction", width: 10 },
       { header: "نوع سند", key: "deedType", width: 12 },
-      { header: "متریال کف", key: "flooringType", width: 14 },
-      { header: "متریال دیوار", key: "wallType", width: 14 },
-      { header: "آیفون", key: "intercom", width: 12 },
-      { header: "متریال کابینت", key: "cabinetMaterial", width: 14 },
       { header: "بالکن", key: "balcony", width: 8 },
       { header: "کمد دیواری", key: "wardrobe", width: 10 },
       { header: "شومینه", key: "fireplace", width: 10 },
-      { header: "آنتن مرکزی", key: "centralAntenna", width: 12 },
       { header: "آسانسور", key: "elevator", width: 8 },
       { header: "انباری", key: "storage", width: 8 },
       { header: "پارکینگ", key: "parking", width: 8 },
-      { header: "معاوضه", key: "exchange", width: 8 },
       { header: "آدرس", key: "address", width: 40 },
       { header: "توضیحات", key: "description", width: 60 },
-      { header: "تصاویر (فقط آدرس‌ها)", key: "images", width: 60 },
+      { header: "تصاویر (آدرس‌ها)", key: "images", width: 60 },
       { header: "مالک", key: "ownerName", width: 20 },
       { header: "تلفن مالک", key: "ownerPhone", width: 16 },
       { header: "عرض جغرافیایی", key: "latitude", width: 12 },
       { header: "طول جغرافیایی", key: "longitude", width: 12 },
       { header: "تاریخ ثبت", key: "createdAt", width: 18 },
       { header: "آخرین ویرایش", key: "updatedAt", width: 18 },
-      { header: "حذف شده؟", key: "deletedAt", width: 18 },
     ];
 
     const yesNo = (v) => (v ? "بله" : "خیر");
@@ -56,7 +50,6 @@ export async function GET() {
     properties.forEach((item) => {
       ws.addRow({
         _id: item._id?.toString(),
-        // title removed per latest requirements
         propertyType: item.propertyType || "",
         saleType: item.saleType || "",
         price: item.price ?? "",
@@ -69,18 +62,12 @@ export async function GET() {
         unitsCount: item.unitsCount ?? "",
         direction: item.direction || "",
         deedType: item.deedType || "",
-        flooringType: item.flooringType || "",
-        wallType: item.wallType || "",
-        intercom: item.intercom || "",
-        cabinetMaterial: item.cabinetMaterial || "",
         balcony: yesNo(item.balcony),
         wardrobe: yesNo(item.wardrobe),
         fireplace: yesNo(item.fireplace),
-        centralAntenna: yesNo(item.centralAntenna),
         elevator: yesNo(item.elevator),
         storage: yesNo(item.storage),
         parking: yesNo(item.parking),
-        exchange: yesNo(item.exchange),
         address: item.address || "",
         description: item.description || "",
         images: Array.isArray(item.images) ? item.images.join(", ") : "",
@@ -90,25 +77,20 @@ export async function GET() {
         longitude: item.longitude ?? "",
         createdAt: fmtDate(item.createdAt),
         updatedAt: fmtDate(item.updatedAt),
-        deletedAt: fmtDate(item.deletedAt),
       });
     });
 
-    // style header row
     ws.getRow(1).font = { bold: true };
 
     const buffer = await wb.xlsx.writeBuffer();
-    return new NextResponse(buffer, {
-      headers: {
-        "Content-Type":
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "Content-Disposition": "attachment; filename=properties.xlsx",
-      },
-    });
+
+    const dir = path.join(process.cwd(), "public", "exports");
+    await fs.mkdir(dir, { recursive: true });
+    const filepath = path.join(dir, "properties.xlsx");
+    await fs.writeFile(filepath, buffer);
+
+    return NextResponse.json({ ok: true, path: "/exports/properties.xlsx" });
   } catch (error) {
-    return NextResponse.json(
-      { error: "خطا در خروجی اکسل" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "save error" }, { status: 500 });
   }
 }

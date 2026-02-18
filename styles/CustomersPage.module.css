@@ -96,6 +96,33 @@
   transform: scale(0.98);
 }
 
+.exportButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--accent-gold);
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.exportButton:hover {
+  background: var(--accent-gold);
+  color: #1a1a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px var(--accent-gold);
+}
+
+.exportButton:active {
+  transform: scale(0.98);
+}
+
 /* ========== حالت خالی ========== */
 .emptyState {
   background: var(--bg-card);
