@@ -26,10 +26,15 @@ export default async function PropertiesPage({ searchParams }) {
           <h1 className={styles.title}>لیست تمام املاک</h1>
           <span className={styles.badge}>{propertiesArray.length} ملک</span>
         </div>
-        <Link href="/properties/new" className={styles.addButton}>
-          <Plus size={20} />
-          ثبت ملک جدید
-        </Link>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <Link href="/api/properties/export" className={styles.addButton}>
+            خروجی اکسل
+          </Link>
+          <Link href="/properties/new" className={styles.addButton}>
+            <Plus size={20} />
+            ثبت ملک جدید
+          </Link>
+        </div>
       </div>
 
       <SearchHeader placeholder="جستجوی مالک، آدرس یا شماره..." />

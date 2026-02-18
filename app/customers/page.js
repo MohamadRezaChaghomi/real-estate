@@ -24,10 +24,15 @@ export default async function CustomersPage({ searchParams }) {
           <h1 className={styles.title}>لیست خریداران</h1>
           <span className={styles.badge}>{customersArray.length} خریدار</span>
         </div>
-        <Link href="/customers/new" className={styles.addButton}>
-          <UserPlus size={20} />
-          ثبت خریدار جدید
-        </Link>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <Link href="/api/customers/export" className={styles.addButton}>
+            خروجی اکسل
+          </Link>
+          <Link href="/customers/new" className={styles.addButton}>
+            <UserPlus size={20} />
+            ثبت خریدار جدید
+          </Link>
+        </div>
       </div>
 
       <SearchHeader placeholder="جستجوی نام یا شماره خریدار..." />

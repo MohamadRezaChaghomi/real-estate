@@ -120,9 +120,6 @@ export default function Dashboard() {
           </p>
         </div>
         <div className={styles.actions}>
-          <Link href="/api/properties/export" className={styles.btnExport}>
-            <Download size={20} /> خروجی اکسل
-          </Link>
           <Link href="/properties/new" className={styles.btnPrimary}>
             <Plus size={20} /> ثبت ملک جدید
           </Link>
