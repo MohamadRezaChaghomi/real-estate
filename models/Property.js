@@ -13,6 +13,7 @@ const propertySchema = new mongoose.Schema(
     direction: { type: String, enum: ["north", "south", "east", "west"] },
     deedType: { type: String, enum: ["full", "promissory"] },
     price: { type: Number },
+    pricePerSqm: { type: Number },
     rentPrice: { type: Number },
     deposit: { type: Number },
     water: { type: Boolean, default: false },

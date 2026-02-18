@@ -96,6 +96,20 @@ export async function getProperty(id) {
 export async function createProperty(data) {
   await connectDB();
   try {
+    // ensure numeric fields
+    const areaNum = Number(data.area) || 0;
+    const priceNum = data.price !== undefined ? Number(data.price) : undefined;
+    const ppsNum = data.pricePerSqm !== undefined ? Number(data.pricePerSqm) : undefined;
+
+    // If sale and area available, derive missing field
+    if (data.saleType === "sale") {
+      if ((priceNum === undefined || isNaN(priceNum) || priceNum === 0) && ppsNum > 0 && areaNum > 0) {
+        data.price = Math.round(ppsNum * areaNum);
+      } else if ((ppsNum === undefined || isNaN(ppsNum) || ppsNum === 0) && priceNum > 0 && areaNum > 0) {
+        data.pricePerSqm = Math.round(priceNum / areaNum);
+      }
+    }
+
     const property = await Property.create(data);
     const plainProperty = property.toObject();
     await createAuditLog({
@@ -118,6 +132,19 @@ export async function updateProperty(id, data) {
   try {
     const before = await Property.findById(id).lean(); // ✅
     if (!before) return null;
+    // merge values to compute derived fields
+    const merged = { ...before, ...data };
+    const areaNum = Number(merged.area) || 0;
+    const priceNum = merged.price !== undefined ? Number(merged.price) : undefined;
+    const ppsNum = merged.pricePerSqm !== undefined ? Number(merged.pricePerSqm) : undefined;
+
+    if (merged.saleType === "sale") {
+      if ((priceNum === undefined || isNaN(priceNum) || priceNum === 0) && ppsNum > 0 && areaNum > 0) {
+        data.price = Math.round(ppsNum * areaNum);
+      } else if ((ppsNum === undefined || isNaN(ppsNum) || ppsNum === 0) && priceNum > 0 && areaNum > 0) {
+        data.pricePerSqm = Math.round(priceNum / areaNum);
+      }
+    }
 
     data.updatedAt = Date.now();
     const updated = await Property.findByIdAndUpdate(id, data, {

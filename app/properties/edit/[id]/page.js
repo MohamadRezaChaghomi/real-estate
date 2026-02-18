@@ -24,7 +24,30 @@ export default function EditProperty({ params }) {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+    const val = type === "checkbox" ? checked : value;
+    const updated = { ...form, [name]: val };
+
+    // sync price and pricePerSqm based on area
+    if (name === "pricePerSqm") {
+      const areaNum = parseFloat(updated.area) || 0;
+      const pps = parseFloat(value) || 0;
+      if (areaNum > 0) updated.price = Math.round(pps * areaNum);
+    } else if (name === "price") {
+      const areaNum = parseFloat(updated.area) || 0;
+      const priceNum = parseFloat(value) || 0;
+      if (areaNum > 0) updated.pricePerSqm = Math.round(priceNum / areaNum);
+    } else if (name === "area") {
+      const areaNum = parseFloat(value) || 0;
+      const priceNum = parseFloat(updated.price) || 0;
+      const ppsNum = parseFloat(updated.pricePerSqm) || 0;
+      if (priceNum > 0 && areaNum > 0) {
+        updated.pricePerSqm = Math.round(priceNum / areaNum);
+      } else if (ppsNum > 0 && areaNum > 0) {
+        updated.price = Math.round(ppsNum * areaNum);
+      }
+    }
+
+    setForm(updated);
   };
 
   const handleSubmit = async (e) => {
@@ -164,16 +187,29 @@ export default function EditProperty({ params }) {
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>اطلاعات مالی</h3>
             {form.saleType === "sale" ? (
-              <div className={styles.field}>
-                <label className={styles.label}>قیمت فروش (تومان)</label>
-                <input
-                  name="price"
-                  type="number"
-                  placeholder="قیمت"
-                  className={styles.input}
-                  value={form.price || ""}
-                  onChange={handleChange}
-                />
+              <div className={styles.grid}>
+                <div className={styles.field}>
+                  <label className={styles.label}>قیمت فروش (تومان)</label>
+                  <input
+                    name="price"
+                    type="number"
+                    placeholder="قیمت"
+                    className={styles.input}
+                    value={form.price || ""}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label}>قیمت هر متر (تومان)</label>
+                  <input
+                    name="pricePerSqm"
+                    type="number"
+                    placeholder="قیمت هر متر"
+                    className={styles.input}
+                    value={form.pricePerSqm || ""}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
             ) : (
               <div className={styles.grid}>

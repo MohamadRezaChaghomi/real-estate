@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Edit, Trash2, Eye, MapPin } from "lucide-react";
+import { Edit, Trash2, Eye, MapPin, Box, Car, Home, DollarSign } from "lucide-react";
 import ConfirmModal from "@/components/ConfirmModal";
 import styles from "@/styles/PropertyCard.module.css";
 
@@ -35,6 +35,11 @@ export default function PropertyCard({ item }) {
           : item.saleType === "rent"
           ? `${item.rent?.toLocaleString()} تومان /ماه`
           : `${item.deposit?.toLocaleString()} تومان رهن`}
+        {item.pricePerSqm ? (
+          <div className={styles.pricePerSqm}>
+            <DollarSign size={14} /> {`${item.pricePerSqm?.toLocaleString()} تومان/متر`}
+          </div>
+        ) : null}
       </div>
 
       {item.address && (
@@ -64,12 +69,16 @@ export default function PropertyCard({ item }) {
         {item.parking || item.elevator || item.storage ? (
           <>
             <div className={styles.detailRow}>
-              <span className={styles.detailLabel}>پارکینگ</span>
+              <span className={styles.detailLabel}><Car size={14} className={styles.icon} /> پارکینگ</span>
               <span className={styles.detailValue}>{item.parking ? "✓" : "-"}</span>
             </div>
             <div className={styles.detailRow}>
-              <span className={styles.detailLabel}>آسانسور</span>
+              <span className={styles.detailLabel}><Home size={14} className={styles.icon} /> آسانسور</span>
               <span className={styles.detailValue}>{item.elevator ? "✓" : "-"}</span>
+            </div>
+            <div className={styles.detailRow}>
+              <span className={styles.detailLabel}><Box size={14} className={styles.icon} /> انباری</span>
+              <span className={styles.detailValue}>{item.storage ? "✓" : "-"}</span>
             </div>
           </>
         ) : null}

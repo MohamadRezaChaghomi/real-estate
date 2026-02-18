@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { User, Edit, Trash2, Eye } from "lucide-react";
+import { User, Edit, Trash2, Eye, DollarSign, MapPin } from "lucide-react";
 import ConfirmModal from "@/components/ConfirmModal";
 import styles from "@/styles/CustomerCard.module.css";
 
@@ -39,7 +39,7 @@ export default function CustomerCard({ customer }) {
           <h3 className={styles.name}>{customer.name}</h3>
           <p className={styles.customerNumber}>{customer.customerNumber}</p>
           {customer.desiredPrice ? (
-            <p className={styles.customerPrice}>{customer.desiredPrice.toLocaleString()} تومان</p>
+            <p className={styles.customerPrice}><DollarSign size={14} /> {customer.desiredPrice.toLocaleString()} تومان</p>
           ) : null}
           {customer.phone && <p className={styles.customerPhone} dir="ltr">{customer.phone}</p>}
         </div>
@@ -62,7 +62,7 @@ export default function CustomerCard({ customer }) {
           <div className={styles.detailRow}>
             <span className={styles.detailLabel}>قیمت مورد نظر:</span>
             <span className={styles.detailValue}>
-              {customer.desiredPrice.toLocaleString()} تومان
+              <DollarSign size={14} /> {customer.desiredPrice.toLocaleString()} تومان
             </span>
           </div>
         )}
@@ -70,7 +70,7 @@ export default function CustomerCard({ customer }) {
           <div className={styles.detailRow}>
             <span className={styles.detailLabel}>متراژ:</span>
             <span className={styles.detailValue}>
-              {customer.desiredArea} متر
+              <MapPin size={14} /> {customer.desiredArea} متر
             </span>
           </div>
         )}
