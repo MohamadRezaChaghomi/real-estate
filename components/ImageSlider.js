@@ -1,18 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import styles from "@/styles/ImageSlider.module.css";
 
 export default function ImageSlider({ images = [], alt = "تصویر ملک" }) {
   const [index, setIndex] = useState(0);
+  const [open, setOpen] = useState(false);
 
-  if (!images || images.length === 0) {
-    return null;
-  }
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
-  const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
-  const next = () => setIndex((i) => (i + 1) % images.length);
+  const prev = useCallback(() => setIndex((i) => (i - 1 + images.length) % images.length), [images.length]);
+  const next = useCallback(() => setIndex((i) => (i + 1) % images.length), [images.length]);
+
+  if (!images || images.length === 0) return null;
 
   return (
     <div className={styles.slider}>
@@ -20,11 +27,29 @@ export default function ImageSlider({ images = [], alt = "تصویر ملک" }) 
         <button className={styles.nav} onClick={prev} aria-label="قبلی">
           <ChevronLeft size={20} />
         </button>
-        <img src={images[index]} alt={`${alt} ${index + 1}`} className={styles.image} />
+
+        <img
+          src={images[index]}
+          alt={`${alt} ${index + 1}`}
+          className={styles.image}
+          onClick={() => setOpen(true)}
+          role="button"
+        />
+
         <button className={styles.nav} onClick={next} aria-label="بعدی">
           <ChevronRight size={20} />
         </button>
+
+        <button
+          className={styles.fullscreenButton}
+          onClick={() => setOpen(true)}
+          aria-label="نمایش کامل"
+          title="نمایش کامل"
+        >
+          <Maximize2 size={16} />
+        </button>
       </div>
+
       {images.length > 1 && (
         <div className={styles.thumbs}>
           {images.map((src, i) => (
@@ -37,6 +62,23 @@ export default function ImageSlider({ images = [], alt = "تصویر ملک" }) 
               <img src={src} alt={`thumb-${i}`} />
             </button>
           ))}
+        </div>
+      )}
+
+      {open && (
+        <div className={styles.modal} onClick={() => setOpen(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button
+              className={styles.fullscreenButton}
+              onClick={() => setOpen(false)}
+              aria-label="بستن"
+              title="بستن"
+              style={{ position: "absolute", top: 10, right: 10 }}
+            >
+              <X size={16} />
+            </button>
+            <img src={images[index]} alt={`${alt} full`} className={styles.modalImage} />
+          </div>
         </div>
       )}
     </div>
