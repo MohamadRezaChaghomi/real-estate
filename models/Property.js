@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const propertySchema = new mongoose.Schema(
   {
-    // ... (فیلدها مانند قبل) ...
     propertyType: { type: String, enum: ["apartment", "villa", "commercial", "garden"], required: true },
     saleType: { type: String, enum: ["rent", "sale"], required: true },
     area: { type: Number },
@@ -45,6 +44,19 @@ const propertySchema = new mongoose.Schema(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     deletedAt: { type: Date },
+
+    // فیلدهای جدید
+    yearBuilt: { type: Number }, // سال ساخت
+    heatingType: {
+      type: String,
+      enum: ["central", "package", "waterHeater", "fireplace", "other"],
+      default: null,
+    },
+    coolingType: {
+      type: String,
+      enum: ["waterCooler", "airConditioner", "fan", "central", "other"],
+      default: null,
+    },
   },
   { timestamps: true }
 );

@@ -7,6 +7,19 @@ import { Edit, Trash2, Eye, MapPin, Box, Car, Home, DollarSign } from "lucide-re
 import ConfirmModal from "@/components/ConfirmModal";
 import styles from "@/styles/PropertyCard.module.css";
 
+// نگاشت‌های فارسی
+const propertyTypeMap = {
+  apartment: "آپارتمان",
+  villa: "ویلا",
+  commercial: "تجاری",
+  garden: "باغ",
+};
+
+const saleTypeMap = {
+  rent: "اجاره",
+  sale: "فروش",
+};
+
 export default function PropertyCard({ item }) {
   const router = useRouter();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -19,7 +32,10 @@ export default function PropertyCard({ item }) {
 
   return (
     <div className={styles.card}>
-      <div className={styles.categoryBadge}>{item.type || "نامشخص"}</div>
+      {/* نمایش نوع ملک و نوع فروش */}
+      <div className={styles.categoryBadge}>
+        {propertyTypeMap[item.propertyType] || "نامشخص"} • {saleTypeMap[item.saleType] || ""}
+      </div>
 
       <div className={styles.header}>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
@@ -41,7 +57,7 @@ export default function PropertyCard({ item }) {
         {item.saleType === "sale"
           ? `${item.price?.toLocaleString()} تومان`
           : item.saleType === "rent"
-          ? `${item.rent?.toLocaleString()} تومان /ماه`
+          ? `${item.rentPrice?.toLocaleString()} تومان /ماه`  // اصلاح rent به rentPrice مطابق اسکیما
           : `${item.deposit?.toLocaleString()} تومان رهن`}
         {item.pricePerSqm ? (
           <div className={styles.pricePerSqm}>
@@ -70,10 +86,11 @@ export default function PropertyCard({ item }) {
           <span className={styles.detailLabel}>خواب</span>
           <span className={styles.detailValue}>{item.rooms || "-"}</span>
         </div>
-        <div className={styles.detailRow}>
+        {/* فیلد yearBuilt در اسکیما وجود ندارد – در صورت نیاز می‌توانید حذف کنید */}
+        {/* <div className={styles.detailRow}>
           <span className={styles.detailLabel}>ساخت</span>
           <span className={styles.detailValue}>{item.yearBuilt || "-"}</span>
-        </div>
+        </div> */}
         {item.parking || item.elevator || item.storage ? (
           <>
             <div className={styles.detailRow}>

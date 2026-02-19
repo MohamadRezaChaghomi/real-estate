@@ -49,6 +49,10 @@ export default function NewPropertyPage() {
     description: "",
     ownerName: "",
     ownerPhone: "",
+    // فیلدهای جدید
+    yearBuilt: "",
+    heatingType: "",
+    coolingType: "",
   });
 
   const handleChange = (e) => {
@@ -116,7 +120,11 @@ export default function NewPropertyPage() {
   return (
     <div className={styles.container}>
       <div style={{ marginBottom: "1.5rem" }}>
-        <Link href="/properties" className={styles.backButton} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--text-secondary)" }}>
+        <Link
+          href="/properties"
+          className={styles.backButton}
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--text-secondary)" }}
+        >
           <ArrowLeft size={20} /> بازگشت
         </Link>
       </div>
@@ -154,7 +162,6 @@ export default function NewPropertyPage() {
                 </select>
               </div>
             </div>
-            {/* عنوان حذف شد - ملک‌ها اسم ندارند */}
           </section>
 
           {/* مشخصات فیزیکی */}
@@ -211,6 +218,15 @@ export default function NewPropertyPage() {
                 <option value="full">شش دانگ</option>
                 <option value="promissory">قولنامه‌ای</option>
               </select>
+              {/* فیلد سال ساخت */}
+              <input
+                name="yearBuilt"
+                type="number"
+                placeholder="سال ساخت"
+                className={styles.input}
+                value={form.yearBuilt}
+                onChange={handleChange}
+              />
             </div>
           </section>
 
@@ -218,24 +234,24 @@ export default function NewPropertyPage() {
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>اطلاعات مالی</h3>
             {form.saleType === "sale" ? (
-                <>
-                  <input
-                    name="price"
-                    type="number"
-                    placeholder="قیمت فروش (تومان)"
-                    className={styles.input}
-                    value={form.price}
-                    onChange={handleChange}
-                  />
-                  <input
-                    name="pricePerSqm"
-                    type="number"
-                    placeholder="قیمت هر متر (تومان)"
-                    className={styles.input}
-                    value={form.pricePerSqm || ""}
-                    onChange={handleChange}
-                  />
-                </>
+              <>
+                <input
+                  name="price"
+                  type="number"
+                  placeholder="قیمت فروش (تومان)"
+                  className={styles.input}
+                  value={form.price}
+                  onChange={handleChange}
+                />
+                <input
+                  name="pricePerSqm"
+                  type="number"
+                  placeholder="قیمت هر متر (تومان)"
+                  className={styles.input}
+                  value={form.pricePerSqm || ""}
+                  onChange={handleChange}
+                />
+              </>
             ) : (
               <div className={styles.row}>
                 <input
@@ -295,6 +311,41 @@ export default function NewPropertyPage() {
                 </label>
               ))}
             </div>
+            {/* فیلدهای نوع گرمایش و سرمایش */}
+            <div className={styles.row} style={{ marginTop: "1rem" }}>
+              <div className={styles.field}>
+                <label className={styles.label}>نوع گرمایش</label>
+                <select
+                  name="heatingType"
+                  className={styles.select}
+                  value={form.heatingType}
+                  onChange={handleChange}
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="central">گرمایش مرکزی</option>
+                  <option value="package">پکیج</option>
+                  <option value="waterHeater">آب‌گرمکن</option>
+                  <option value="fireplace">شومینه</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>نوع سرمایش</label>
+                <select
+                  name="coolingType"
+                  className={styles.select}
+                  value={form.coolingType}
+                  onChange={handleChange}
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="waterCooler">کولر آبی</option>
+                  <option value="airConditioner">کولر گازی</option>
+                  <option value="fan">پنکه</option>
+                  <option value="central">سرمایش مرکزی</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+            </div>
           </section>
 
           {/* متریال */}
@@ -332,7 +383,12 @@ export default function NewPropertyPage() {
               </div>
               <div className={styles.field}>
                 <label className={styles.label}>متریال کابینت</label>
-                <select name="cabinetMaterial" className={styles.select} value={form.cabinetMaterial} onChange={handleChange}>
+                <select
+                  name="cabinetMaterial"
+                  className={styles.select}
+                  value={form.cabinetMaterial}
+                  onChange={handleChange}
+                >
                   <option value="">انتخاب کنید</option>
                   <option value="mdf">ام‌دی‌اف</option>
                   <option value="highGloss">های‌گلاس</option>
@@ -387,16 +443,16 @@ export default function NewPropertyPage() {
           {/* آدرس و توضیحات */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>آدرس و توضیحات</h3>
-                  <div style={{ marginBottom: "0.75rem" }}>
-                    <MapSelector
-                      latitude={form.latitude}
-                      longitude={form.longitude}
-                      address={form.address}
-                      onChange={({ address, latitude, longitude }) =>
-                        setForm({ ...form, address, latitude, longitude })
-                      }
-                    />
-                  </div>
+            <div style={{ marginBottom: "0.75rem" }}>
+              <MapSelector
+                latitude={form.latitude}
+                longitude={form.longitude}
+                address={form.address}
+                onChange={({ address, latitude, longitude }) =>
+                  setForm({ ...form, address, latitude, longitude })
+                }
+              />
+            </div>
             <textarea
               name="description"
               placeholder="توضیحات"
@@ -423,7 +479,14 @@ export default function NewPropertyPage() {
                 <span>برای آپلود کلیک کنید یا فایل را بکشید</span>
               </label>
               {images && images.length > 0 && (
-                <div style={{ marginTop: "1rem", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: "0.75rem" }}>
+                <div
+                  style={{
+                    marginTop: "1rem",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
+                    gap: "0.75rem",
+                  }}
+                >
                   {Array.from(images).map((file, idx) => (
                     <div
                       key={idx}

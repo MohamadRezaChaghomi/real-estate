@@ -30,7 +30,7 @@ export default function EditProperty({ params }) {
     const val = type === "checkbox" ? checked : value;
     const updated = { ...form, [name]: val };
 
-    // sync price and pricePerSqm based on area
+    // همگام‌سازی قیمت و قیمت هر متر
     if (name === "pricePerSqm") {
       const areaNum = parseFloat(updated.area) || 0;
       const pps = parseFloat(value) || 0;
@@ -92,13 +92,18 @@ export default function EditProperty({ params }) {
       <h1 className={styles.title}>ویرایش ملک</h1>
       <div className={styles.formCard}>
         <form onSubmit={handleSubmit} className={styles.form}>
-          {/* اطلاعات اولیه */}
+          {/* ---------- اطلاعات اولیه ---------- */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>اطلاعات اولیه</h3>
             <div className={styles.grid}>
               <div className={styles.field}>
                 <label className={styles.label}>نوع ملک</label>
-                <select name="propertyType" className={styles.select} value={form.propertyType || ""} onChange={handleChange}>
+                <select
+                  name="propertyType"
+                  className={styles.select}
+                  value={form.propertyType || ""}
+                  onChange={handleChange}
+                >
                   <option value="">انتخاب کنید</option>
                   <option value="apartment">آپارتمان</option>
                   <option value="villa">ویلایی</option>
@@ -108,7 +113,12 @@ export default function EditProperty({ params }) {
               </div>
               <div className={styles.field}>
                 <label className={styles.label}>نوع فروش</label>
-                <select name="saleType" className={styles.select} value={form.saleType || ""} onChange={handleChange}>
+                <select
+                  name="saleType"
+                  className={styles.select}
+                  value={form.saleType || ""}
+                  onChange={handleChange}
+                >
                   <option value="">انتخاب کنید</option>
                   <option value="sale">فروش</option>
                   <option value="rent">رهن و اجاره</option>
@@ -117,7 +127,7 @@ export default function EditProperty({ params }) {
             </div>
           </section>
 
-          {/* مشخصات فیزیکی */}
+          {/* ---------- مشخصات فیزیکی ---------- */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>مشخصات فیزیکی</h3>
             <div className={styles.grid}>
@@ -126,7 +136,7 @@ export default function EditProperty({ params }) {
                 <input
                   name="area"
                   type="number"
-                  placeholder="0"
+                  placeholder="مثلاً ۸۰"
                   className={styles.input}
                   value={form.area || ""}
                   onChange={handleChange}
@@ -137,7 +147,7 @@ export default function EditProperty({ params }) {
                 <input
                   name="rooms"
                   type="number"
-                  placeholder="0"
+                  placeholder="مثلاً ۲"
                   className={styles.input}
                   value={form.rooms || ""}
                   onChange={handleChange}
@@ -148,7 +158,7 @@ export default function EditProperty({ params }) {
                 <input
                   name="floor"
                   type="number"
-                  placeholder="0"
+                  placeholder="مثلاً ۳"
                   className={styles.input}
                   value={form.floor || ""}
                   onChange={handleChange}
@@ -159,7 +169,7 @@ export default function EditProperty({ params }) {
                 <input
                   name="unitsCount"
                   type="number"
-                  placeholder="0"
+                  placeholder="مثلاً ۱۲"
                   className={styles.input}
                   value={form.unitsCount || ""}
                   onChange={handleChange}
@@ -167,7 +177,12 @@ export default function EditProperty({ params }) {
               </div>
               <div className={styles.field}>
                 <label className={styles.label}>جهت ساختمان</label>
-                <select name="direction" className={styles.select} value={form.direction || ""} onChange={handleChange}>
+                <select
+                  name="direction"
+                  className={styles.select}
+                  value={form.direction || ""}
+                  onChange={handleChange}
+                >
                   <option value="">انتخاب کنید</option>
                   <option value="north">شمالی</option>
                   <option value="south">جنوبی</option>
@@ -177,16 +192,32 @@ export default function EditProperty({ params }) {
               </div>
               <div className={styles.field}>
                 <label className={styles.label}>نوع سند</label>
-                <select name="deedType" className={styles.select} value={form.deedType || ""} onChange={handleChange}>
+                <select
+                  name="deedType"
+                  className={styles.select}
+                  value={form.deedType || ""}
+                  onChange={handleChange}
+                >
                   <option value="">انتخاب کنید</option>
                   <option value="full">شش دانگ</option>
                   <option value="promissory">قولنامه‌ای</option>
                 </select>
               </div>
+              <div className={styles.field}>
+                <label className={styles.label}>سال ساخت</label>
+                <input
+                  name="yearBuilt"
+                  type="number"
+                  placeholder="مثلاً ۱۳۹۵"
+                  className={styles.input}
+                  value={form.yearBuilt || ""}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
           </section>
 
-          {/* اطلاعات مالی */}
+          {/* ---------- اطلاعات مالی ---------- */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>اطلاعات مالی</h3>
             {form.saleType === "sale" ? (
@@ -196,7 +227,7 @@ export default function EditProperty({ params }) {
                   <input
                     name="price"
                     type="number"
-                    placeholder="قیمت"
+                    placeholder="قیمت کل"
                     className={styles.input}
                     value={form.price || ""}
                     onChange={handleChange}
@@ -221,7 +252,7 @@ export default function EditProperty({ params }) {
                   <input
                     name="deposit"
                     type="number"
-                    placeholder="رهن"
+                    placeholder="مبلغ رهن"
                     className={styles.input}
                     value={form.deposit || ""}
                     onChange={handleChange}
@@ -254,21 +285,9 @@ export default function EditProperty({ params }) {
             </div>
           </section>
 
-          {/* ویژگی‌ها و امکانات */}
+          {/* ---------- امکانات پایه ---------- */}
           <section className={styles.section}>
-            <h3 className={styles.sectionTitle}>ویژگی‌ها و امکانات</h3>
-            <div className={styles.field}>
-              <label className={styles.label}>متریال کابینت</label>
-              <select name="cabinetMaterial" className={styles.select} value={form.cabinetMaterial || ""} onChange={handleChange}>
-                <option value="">انتخاب کنید</option>
-                <option value="mdf">ام‌دی‌اف</option>
-                <option value="highGloss">های‌گلاس</option>
-                <option value="acrylic">اکریلیک</option>
-                <option value="wood">چوب</option>
-                <option value="laminate">لمینت</option>
-                <option value="other">سایر</option>
-              </select>
-            </div>
+            <h3 className={styles.sectionTitle}>امکانات پایه</h3>
             <div className={styles.checkboxGroup}>
               {[
                 { key: "water", label: "آب" },
@@ -280,6 +299,114 @@ export default function EditProperty({ params }) {
                 { key: "heating", label: "گرمایش" },
                 { key: "cooling", label: "سرمایش" },
                 { key: "balcony", label: "بالکن" },
+              ].map((item) => (
+                <label key={item.key} className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    name={item.key}
+                    checked={!!form[item.key]}
+                    onChange={handleChange}
+                    className={styles.checkbox}
+                  />
+                  {item.label}
+                </label>
+              ))}
+            </div>
+            {/* انتخاب نوع گرمایش و سرمایش */}
+            <div className={styles.row} style={{ marginTop: "1rem" }}>
+              <div className={styles.field}>
+                <label className={styles.label}>نوع گرمایش</label>
+                <select
+                  name="heatingType"
+                  className={styles.select}
+                  value={form.heatingType || ""}
+                  onChange={handleChange}
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="central">گرمایش مرکزی</option>
+                  <option value="package">پکیج</option>
+                  <option value="waterHeater">آب‌گرمکن</option>
+                  <option value="fireplace">شومینه</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>نوع سرمایش</label>
+                <select
+                  name="coolingType"
+                  className={styles.select}
+                  value={form.coolingType || ""}
+                  onChange={handleChange}
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="waterCooler">کولر آبی</option>
+                  <option value="airConditioner">کولر گازی</option>
+                  <option value="fan">پنکه</option>
+                  <option value="central">سرمایش مرکزی</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          {/* ---------- متریال ---------- */}
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>متریال</h3>
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <label className={styles.label}>متریال کف</label>
+                <select
+                  name="flooringType"
+                  className={styles.select}
+                  value={form.flooringType || ""}
+                  onChange={handleChange}
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="parquet">پارکت</option>
+                  <option value="ceramic">سرامیک</option>
+                  <option value="stone">سنگ</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>متریال دیوار</label>
+                <select
+                  name="wallType"
+                  className={styles.select}
+                  value={form.wallType || ""}
+                  onChange={handleChange}
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="paint">نقاشی</option>
+                  <option value="wallpaper">کاغذ دیواری</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>متریال کابینت</label>
+                <select
+                  name="cabinetMaterial"
+                  className={styles.select}
+                  value={form.cabinetMaterial || ""}
+                  onChange={handleChange}
+                >
+                  <option value="">انتخاب کنید</option>
+                  <option value="mdf">ام‌دی‌اف</option>
+                  <option value="highGloss">های‌گلاس</option>
+                  <option value="acrylic">اکریلیک</option>
+                  <option value="wood">چوب</option>
+                  <option value="laminate">لمینت</option>
+                  <option value="other">سایر</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          {/* ---------- امکانات رفاهی ---------- */}
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>امکانات رفاهی</h3>
+            <div className={styles.checkboxGroup}>
+              {[
                 { key: "wardrobe", label: "کمد دیواری" },
                 { key: "fireplace", label: "شومینه" },
                 { key: "centralAntenna", label: "آنتن مرکزی" },
@@ -299,9 +426,22 @@ export default function EditProperty({ params }) {
                 </label>
               ))}
             </div>
+            <div className={styles.field} style={{ marginTop: "1rem" }}>
+              <label className={styles.label}>آیفون</label>
+              <select
+                name="intercom"
+                className={styles.select}
+                value={form.intercom || "none"}
+                onChange={handleChange}
+              >
+                <option value="none">ندارد</option>
+                <option value="audio">صوتی</option>
+                <option value="video">تصویری</option>
+              </select>
+            </div>
           </section>
 
-          {/* آدرس و توضیحات */}
+          {/* ---------- آدرس و توضیحات ---------- */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>آدرس و توضیحات</h3>
             <div className={styles.field}>
@@ -328,7 +468,7 @@ export default function EditProperty({ params }) {
             </div>
           </section>
 
-          {/* تصاویر */}
+          {/* ---------- تصاویر ---------- */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>تصاویر</h3>
             <div className={styles.fileUpload}>
@@ -357,6 +497,33 @@ export default function EditProperty({ params }) {
                 )}
               </div>
             )}
+          </section>
+
+          {/* ---------- اطلاعات مالک ---------- */}
+          <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>اطلاعات مالک</h3>
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <label className={styles.label}>نام مالک</label>
+                <input
+                  name="ownerName"
+                  placeholder="نام و نام خانوادگی"
+                  className={styles.input}
+                  value={form.ownerName || ""}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>شماره مالک</label>
+                <input
+                  name="ownerPhone"
+                  placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+                  className={styles.input}
+                  value={form.ownerPhone || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
           </section>
 
           <button type="submit" className={styles.submitButton}>
